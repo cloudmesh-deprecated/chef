@@ -3,6 +3,7 @@ import platform
 from fabric.api import local, task
 from fabric.context_managers import lcd
 
+
 def _control_server(command):
     local('sudo chef-server-ctl {0}'.format(command))
 
@@ -83,3 +84,7 @@ def uninstall():
         _uninstall_centos()
     else:
         local('echo "Unsupported operating system distribution."')
+
+
+def client():
+    local("curl -L https://www.opscode.com/chef/install.sh | sudo bash")
