@@ -1,0 +1,6 @@
+# Pegasus 3.1
+[Pegasus31]
+name=Pegasus31
+baseurl=http://pegasus.isi.edu/wms/download/3.1/yum/rhel/$releasever/$basearch/
+gpgcheck=0
+enabled=1
