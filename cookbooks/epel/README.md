@@ -2,8 +2,7 @@ Description
 ===========
 Sets up an instance to use the Extra Packages for Enterprise Linux (EPEL) repo.
 
-Creates a new rpm-gpg file: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL.
-Createa a new yum.repos.d file: /etc/yum.repos.d/epel.repo.
+Creates a new yum.repos.d file: /etc/yum.repos.d/epel.repo.
 
 Requirements
 ============
@@ -11,7 +10,9 @@ Red Hat Enterprise Linux (RHEL), CentOS or Scientific Linux (SL) platform.
 
 Attributes
 ==========
-None
+* `node["epel"]["download_url"]` - The download URL for the EPEL RPM.
+* `node["epel"]["download_dir"]` - Directory where the RPM is downloaded. Defaults to `/tmp`
+* `node["epel"]["checksum"]` - sha265sum of the downloaded RPM
 
 Usage
 =====

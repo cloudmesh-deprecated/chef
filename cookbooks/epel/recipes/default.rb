@@ -2,7 +2,7 @@
 # Cookbook Name:: epel
 # Recipe:: default
 #
-# Copyright 2012, Jonathan Klinginsmith
+# Copyright 2013, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,29 +17,17 @@
 # limitations under the License.
 #
 
-directory "/etc/pki/rpm-gpg" do
-  owner "root"
-  group "root"
+epel_download_url = node["epel"]["download_url"]
+epel_download_dir = node["epel"]["download_dir"]
+epel_checksum = node["epel"]["checksum"]
+
+remote_file "#{epel_download_dir}/epel.rpm" do
+  source "#{epel_download_url}"
   mode "0755"
-  action :create
+  checksum "#{epel_checksum}"
 end
 
-cookbook_file "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL" do
-  source "RPM-GPG-KEY-EPEL"
-  mode "0644"
-  action :create_if_missing 
+package "#{epel_download_dir}/epel.rpm" do
+  action :install
+  not_if "test -f /etc/yum.repos.d/epel.repo"
 end
-
-directory "/etc/yum.repos.d" do
-  owner "root"
-  group "root"
-  mode "0755"
-  action :create
-end
-
-cookbook_file "/etc/yum.repos.d/epel.repo" do
-  source "epel.repo"
-  mode "0644"
-  action :create_if_missing
-end
-
