@@ -23,7 +23,7 @@ openmpi_download_dir = node["openmpi"]["download_dir"]
 openmpi_checksum = node["openmpi"]["checksum"]
 openmpi_prefix = node["openmpi"]["prefix"]
 
-packages = %w[gcc gcc-c++ gcc-gfortran java-1.7.0-openjdk]
+packages = %w[gcc gcc-c++ gcc-gfortran java-1.7.0-openjdk make]
 
 packages.each do |package|
   package "#{package}" do
