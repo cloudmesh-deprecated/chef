@@ -1,0 +1,5 @@
+default["cmake"]["version"] = "2.8.11.2"
+default["cmake"]["download_url"] = "http://www.cmake.org/files/v2.8/cmake-#{node["cmake"]["version"]}.tar.gz"
+default["cmake"]["download_dir"] = "/tmp"
+default["cmake"]["checksum"] = "b32acb483afdd14339941c6e4ec25f633d916a7a472653a0b00838771a6c0562"
+default["cmake"]["prefix"] = "/usr/local"
