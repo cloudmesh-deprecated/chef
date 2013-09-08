@@ -1,0 +1,5 @@
+default["R"]["version"] = "3.0.1"
+default["R"]["download_url"] = "http://ftp.ussg.iu.edu/CRAN/src/base/R-3/R-#{node["R"]["version"]}.tar.gz"
+default["R"]["download_dir"] = "/tmp"
+default["R"]["checksum"] = "af90488af3141103b211dc81b6f17d1f0faf4f17684c579a32dfeb25d0d87134"
+default["R"]["prefix"] = "/usr/local"
