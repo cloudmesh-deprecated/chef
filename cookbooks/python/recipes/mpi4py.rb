@@ -20,6 +20,7 @@
 mpi4py_version = node["python"]["mpi4py_version"]
 mpi4py_download_url = node["python"]["mpi4py_download_url"]
 mpi4py_checksum = node["python"]["mpi4py_checksum"]
+mpi4py_mpi_prefix = node["python"]["mpi4py_mpi_prefix"]
 
 python_prefix = node["python"]["prefix"]
 python_lib_directory = `#{node["python"]["prefix"]}/bin/python -c "import distutils.sysconfig as d; print(d.get_python_lib())"`.chomp
@@ -50,7 +51,7 @@ script "install mpi4py" do
   user "root"
   cwd "#{python_download_dir}/mpi4py-#{mpi4py_version}"
   code <<-EOF
-  #{python_prefix}/bin/python setup.py build
+  #{python_prefix}/bin/python setup.py build --mpicc=#{mpi4py_mpi_prefix}/bin/mpicc
   #{python_prefix}/bin/python setup.py install
   EOF
   not_if "test -d #{python_lib_directory}/mpi4py"
