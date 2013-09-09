@@ -9,6 +9,9 @@ default["python"]["cython_version"] = "0.19.1"
 default["python"]["cython_download_url"] = "https://pypi.python.org/packages/source/C/Cython/Cython-#{node["python"]["cython_version"]}.tar.gz"
 default["python"]["cython_checksum"] = "0b90aaa286acdd1bf75a6dd144dfc45192f011f2c2401cf5f80ed6ab5f8bf778"
 
+default["python"]["distribute_setup_download_url"] = "http://python-distribute.org/distribute_setup.py"
+default["python"]["distribute_setup_checksum"] = "974f342d4376551fbf08baec7556ead4f4bd1bca6b1a9c5bad5a0d8b88cee0fe"
+
 default["python"]["ez_setup_download_url"] = "http://peak.telecommunity.com/dist/ez_setup.py"
 default["python"]["ez_setup_checksum"] = "1912fa2575cf3ecbee1a97800d0df6acb6cb0f6eea76f9f20d632220ae476748"
 
