@@ -22,7 +22,6 @@ numpy_download_url = node["python"]["numpy_download_url"]
 numpy_checksum = node["python"]["numpy_checksum"]
 
 python_prefix = node["python"]["prefix"]
-python_lib_dir = `#{node["python"]["prefix"]}/bin/python -c "import distutils.sysconfig as d; print(d.get_python_lib())"`.chomp
 python_download_dir = node["python"]["download_dir"]
 
 packages = %w{atlas atlas-devel blas blas-devel lapack lapack-devel}
@@ -53,5 +52,5 @@ script "install numpy" do
   #{python_prefix}/bin/python setup.py build --fcompiler=gnu95
   #{python_prefix}/bin/python setup.py install
   EOF
-  not_if "test -d #{python_lib_dir}/numpy"
+  not_if "#{python_prefix}/bin/python -c \"import sys; import numpy; sys.exit( 0 if '#{numpy_version}' == numpy.__version__ else 1)\" 2> /dev/null"
 end

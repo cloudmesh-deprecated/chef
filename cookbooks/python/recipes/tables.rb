@@ -17,19 +17,27 @@
 # limitations under the License.
 #
 
-#include_recipe "python::numpy"
-#include_recipe "python::numexpr"
-#include_recipe "python::cython"
+python_prefix = node["python"]["prefix"]
+
+include_recipe "python::pip"
+include_recipe "python::numpy"
+
+pip_packages = %w[numexpr cython]
+pip_packages.each do |pip_package|
+  execute "install #{pip_package}" do
+    command "#{python_prefix}/bin/pip install #{pip_package}"
+    action :run
+  end
+end
 
 tables_version = node["python"]["tables_version"]
 tables_download_url = node["python"]["tables_download_url"]
 tables_checksum = node["python"]["tables_checksum"]
+tables_setup_options = node["python"]["tables_setup_options"]
 
 python_version = node["python"]["version"]
-python_short_version = python_version[0,3]
 python_prefix = node["python"]["prefix"]
 python_download_dir = node["python"]["download_dir"]
-python_lib_directory = `#{python_prefix}/bin/python -c "import distutils.sysconfig as d; print(d.get_python_lib())"`.chomp
 
 remote_file "#{python_download_dir}/tables-#{tables_version}.tar.gz" do
   source "#{tables_download_url}"
@@ -49,7 +57,7 @@ script "install tables" do
   user "root"
   cwd "#{python_download_dir}/tables-#{tables_version}"
   code <<-EOF
-  #{python_prefix}/bin/python setup.py install
+  #{python_prefix}/bin/python setup.py install #{tables_setup_options}
   EOF
-  not_if "test -f #{python_lib_directory}/tables-#{tables_version}-py#{python_short_version}.egg-info"
+  not_if "#{python_prefix}/bin/python -c \"import sys; import tables; sys.exit( 0 if '#{tables_version}' == tables.__version__ else 1)\" 2> /dev/null"
 end

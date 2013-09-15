@@ -24,7 +24,6 @@ scipy_download_url = node["python"]["scipy_download_url"]
 scipy_checksum = node["python"]["scipy_checksum"]
 
 python_prefix = node["python"]["prefix"]
-python_lib_dir = `#{node["python"]["prefix"]}/bin/python -c "import distutils.sysconfig as d; print(d.get_python_lib())"`.chomp
 python_download_dir = node["python"]["download_dir"]
 
 remote_file "#{python_download_dir}/scipy-#{scipy_version}.tar.gz" do
@@ -48,5 +47,5 @@ script "install scipy" do
   #{python_prefix}/bin/python setup.py build --fcompiler=gnu95
   #{python_prefix}/bin/python setup.py install
   EOF
-  not_if "test -d #{python_lib_dir}/scipy"
+  not_if "#{python_prefix}/bin/python -c \"import sys; import scipy; sys.exit( 0 if '#{scipy_version}' == scipy.__version__ else 1)\" 2> /dev/null"
 end
