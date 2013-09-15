@@ -23,7 +23,7 @@ python_download_dir = node["python"]["download_dir"]
 python_checksum = node["python"]["checksum"]
 python_prefix = node["python"]["prefix"]
 
-packages = %w[gcc gcc-c++ bzip2-devel db4-devel expat-devel gdbm-devel ncurses-devel openssl-devel readline-devel sqlite-devel tk-devel zlib-devel]
+packages = %w[gcc gcc-c++ bzip2-devel db4-devel expat-devel gdbm-devel make ncurses-devel openssl-devel readline-devel sqlite-devel tk-devel zlib-devel]
 
 packages.each do |package|
   package "#{package}" do
