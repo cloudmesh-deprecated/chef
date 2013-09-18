@@ -1,0 +1,5 @@
+default["collectd"]["version"] = "5.4.0"
+default["collectd"]["download_url"] = "http://collectd.org/files/collectd-#{node["collectd"]["version"]}.tar.gz"
+default["collectd"]["download_dir"] = "/tmp"
+default["collectd"]["checksum"] = "c434548789d407b00f15c361305766ba4e36f92ccf2ec98d604aab2a46005239"
+default["collectd"]["prefix"] = "/usr"
