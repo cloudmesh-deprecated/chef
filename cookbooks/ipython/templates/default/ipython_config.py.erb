@@ -1,0 +1,10 @@
+c = get_config()
+
+# Kernel config
+c.IPKernelApp.pylab = 'inline'  # if you want plotting support always
+
+# Notebook config
+c.NotebookApp.ip = '127.0.0.1'
+c.NotebookApp.open_browser = False
+c.NotebookApp.password = u'<%= @password %>'
+c.NotebookApp.port = 8080
