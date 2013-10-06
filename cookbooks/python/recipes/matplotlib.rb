@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe "python::pip"
 include_recipe "python::imaging"
 include_recipe "python::numpy"
 
@@ -31,6 +32,15 @@ packages = %w{freetype freetype-devel libpng libpng-devel}
 packages.each do |package|
   package "#{package}" do
     action :install
+  end
+end
+
+# For Python versions < 3, use python-dateutil 1.5
+pip_packages = %w[python-dateutil==1.5]
+pip_packages.each do |pip_package|
+  execute "install #{pip_package}" do
+    command "#{python_prefix}/bin/pip install #{pip_package}"
+    action :run
   end
 end
 
