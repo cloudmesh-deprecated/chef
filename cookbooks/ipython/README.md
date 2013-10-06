@@ -1,68 +1,23 @@
-ipython Cookbook
-================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+Description
+===========
+Installs IPython on CentOS 6.4
 
 Requirements
-------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
-
-e.g.
-#### packages
-- `toaster` - ipython needs toaster to brown your bagel.
+============
 
 Attributes
-----------
-TODO: List you cookbook attributes here.
+==========
+Installs IPython in same location as Python's `bin` dir.
 
-e.g.
-#### ipython::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['ipython']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+* `default["ipython"]["user"]` - IPython notebook user
+* `default["ipython"]["group"]` - IPython notebook group
+* `default["ipython"]["home_dir"]` - IPython user home directory
+* `default["ipython"]["profile_name"]` - IPython profile name to use.
+* `default["ipython"]["profile_dir"]` - IPython profile directory
+* `default["ipython"]["notebook_password"]` - IPython notebook password.
+  See [public server](http://ipython.org/ipython-doc/stable/interactive/public_server.html) on how to generate the password hash.
 
 Usage
------
-#### ipython::default
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `ipython` in your node's `run_list`:
-
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[ipython]"
-  ]
-}
-```
-
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
-
-License and Authors
--------------------
-Authors: TODO: List authors
+=====
+`recipe["ipython"]` - Installs base IPython
+`recipe["ipython::public_notebook"]` - Installs a public IPython notebook.
