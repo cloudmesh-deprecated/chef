@@ -24,7 +24,7 @@ imaging_checksum = node["python"][:imaging_checksum]
 python_prefix = node["python"]["prefix"]
 python_download_dir = node["python"]["download_dir"]
 
-packages = %w{freetype freetype-devel libjpeg libjpeg-devel zlib zlib-devel}
+packages = %w{freetype freetype-devel libjpeg libjpeg-devel libtiff libtiff-devel zlib zlib-devel}
 packages.each do |package|
   package "#{package}" do
     action :install

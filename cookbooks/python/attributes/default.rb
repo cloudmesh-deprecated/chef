@@ -6,9 +6,9 @@ default["python"]["checksum"] = "3b477554864e616a041ee4d7cef9849751770bc7c39adaf
 default["python"]["prefix"] = "/usr/local"
 default["python"]["install_method"] = "source"
 
-default["python"]["cython_version"] = "0.19.1"
+default["python"]["cython_version"] = "0.19.2"
 default["python"]["cython_download_url"] = "https://pypi.python.org/packages/source/C/Cython/Cython-#{node["python"]["cython_version"]}.tar.gz"
-default["python"]["cython_checksum"] = "0b90aaa286acdd1bf75a6dd144dfc45192f011f2c2401cf5f80ed6ab5f8bf778"
+default["python"]["cython_checksum"] = "c5b55b0bd40e23a9cbcd2c1bdefe9771fc5836938acef772795813a6f6432c48"
 
 default["python"]["distribute_setup_download_url"] = "http://python-distribute.org/distribute_setup.py"
 default["python"]["distribute_setup_checksum"] = "974f342d4376551fbf08baec7556ead4f4bd1bca6b1a9c5bad5a0d8b88cee0fe"
@@ -20,26 +20,26 @@ default["python"]["imaging_version"] = "1.1.7"
 default["python"]["imaging_download_url"] = "http://effbot.org/media/downloads/Imaging-#{node["python"]["imaging_version"]}.tar.gz"
 default["python"]["imaging_checksum"] = "895bc7c2498c8e1f9b99938f1a40dc86b3f149741f105cf7c7bd2e0725405211"
 
-default["python"]["matplotlib_version"] = "1.3.0"
+default["python"]["matplotlib_version"] = "1.3.1"
 default["python"]["matplotlib_download_url"] = "http://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-#{node["python"]["matplotlib_version"]}/matplotlib-#{node["python"]["matplotlib_version"]}.tar.gz"
-default["python"]["matplotlib_checksum"] = "3e37044911245d7d881ddab0152cfec463c597b9a207c7f87021b8f40e1cbd98"
+default["python"]["matplotlib_checksum"] = "ea16679d9476ab2757102e80327f31eb8e6c2cb09e2be89715c02e4e8fbdaf6a"
 
 default["python"]["mpi4py_version"] = "1.3.1"
 default["python"]["mpi4py_download_url"] = "https://mpi4py.googlecode.com/files/mpi4py-#{node["python"]["mpi4py_version"]}.tar.gz"
 default["python"]["mpi4py_checksum"] = "e7bd2044aaac5a6ea87a87b2ecc73b310bb6efe5026031e33067ea3c2efc3507"
 default["python"]["mpi4py_mpi_prefix"] = "/usr/local"
 
-default["python"]["numpy_version"] = "1.7.1"
+default["python"]["numpy_version"] = "1.8.0"
 default["python"]["numpy_download_url"] = "https://pypi.python.org/packages/source/n/numpy/numpy-#{node["python"]["numpy_version"]}.tar.gz"
-default["python"]["numpy_checksum"] = "5525019a3085c3d860e6cfe4c0a30fb65d567626aafc50cf1252a641a418084a"
+default["python"]["numpy_checksum"] = "2764d0819acc77e9ff81b060fe7f69530b0d85c26ac9d162639b787cb227d253"
 
 default["python"]["pandas_version"] = "0.12.0"
 default["python"]["pandas_download_url"] = "https://pypi.python.org/packages/source/p/pandas/pandas-#{node["python"]["pandas_version"]}.tar.gz"
-default["python"]["pandas_checksum"] = ""
+default["python"]["pandas_checksum"] = "be9b4c3611801b366873531bc87a87dd16b19e7d78fa84c21898cd007931c86d"
 
-default["python"]["scipy_version"] = "0.12.0"
+default["python"]["scipy_version"] = "0.13.0"
 default["python"]["scipy_download_url"] = "http://downloads.sourceforge.net/project/scipy/scipy/#{node["python"]["scipy_version"]}/scipy-#{node["python"]["scipy_version"]}.tar.gz"
-default["python"]["scipy_checksum"] = "b967e802dafe2db043cfbdf0043e1312f9ce9c1386863e1c801a08ddfccf9de6"
+default["python"]["scipy_checksum"] = "e7fe93ffc4b55d8357238406b1b9e47a4f932474238e2bfdb552423bcd45dc5e"
 
 default["python"]["tables_version"] = "3.0.0"
 default["python"]["tables_download_url"] = "https://pypi.python.org/packages/source/t/tables/tables-#{node["python"]["tables_version"]}.tar.gz"
