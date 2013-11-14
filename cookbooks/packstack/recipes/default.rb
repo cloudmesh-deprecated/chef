@@ -33,7 +33,7 @@ package "rdo-release-havana" do
   action :install
 end
 
-packages = %w[ntp openstack-packstack]
+packages = %w[ntp openstack-packstack python-pbr]
 packages.each do |package|
   package "#{package}" do
     action :install
