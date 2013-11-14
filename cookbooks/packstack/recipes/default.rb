@@ -44,7 +44,7 @@ template "#{answers_path}" do
   source "packstack-answers.txt.erb"
   mode "0644"
   variables(
-    :ip_address => node["ipaddress"]
+    :ip_address => node["ipaddress"],
     :keystone_admin_password => keystone_admin_password
   )
 end
