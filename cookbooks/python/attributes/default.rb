@@ -1,8 +1,8 @@
-default["python"]["version"] = "2.7.5"
+default["python"]["version"] = "2.7.6"
 default["python"]["short_version"] = "#{node["python"]["version"][0,3]}"
-default["python"]["download_url"] = "http://python.org/ftp/python/#{node["python"]["version"]}/Python-#{node["python"]["version"]}.tar.bz2"
+default["python"]["download_url"] = "http://python.org/ftp/python/#{node["python"]["version"]}/Python-#{node["python"]["version"]}.tgz"
 default["python"]["download_dir"] = "/tmp"
-default["python"]["checksum"] = "3b477554864e616a041ee4d7cef9849751770bc7c39adaf78a94ea145c488059"
+default["python"]["checksum"] = ""
 default["python"]["prefix"] = "/usr/local"
 default["python"]["install_method"] = "source"
 

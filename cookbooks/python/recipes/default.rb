@@ -31,14 +31,14 @@ packages.each do |package|
   end
 end
 
-remote_file "#{python_download_dir}/Python-#{python_version}.tar.bz2" do
+remote_file "#{python_download_dir}/Python-#{python_version}.tgz" do
   source "#{python_download_url}"
   mode "0644"
   checksum "#{python_checksum}"
 end
 
 execute "untar python tarball" do
-  command "tar -xjf Python-#{python_version}.tar.bz2"
+  command "tar -xzf Python-#{python_version}.tgz"
   cwd "#{python_download_dir}"
   creates "#{python_download_dir}/Python-#{python_version}"
 end
