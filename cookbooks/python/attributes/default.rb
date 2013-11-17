@@ -37,9 +37,9 @@ default["python"]["pandas_version"] = "0.12.0"
 default["python"]["pandas_download_url"] = "https://pypi.python.org/packages/source/p/pandas/pandas-#{node["python"]["pandas_version"]}.tar.gz"
 default["python"]["pandas_checksum"] = "be9b4c3611801b366873531bc87a87dd16b19e7d78fa84c21898cd007931c86d"
 
-default["python"]["scipy_version"] = "0.13.0"
+default["python"]["scipy_version"] = "0.13.1"
 default["python"]["scipy_download_url"] = "http://downloads.sourceforge.net/project/scipy/scipy/#{node["python"]["scipy_version"]}/scipy-#{node["python"]["scipy_version"]}.tar.gz"
-default["python"]["scipy_checksum"] = "e7fe93ffc4b55d8357238406b1b9e47a4f932474238e2bfdb552423bcd45dc5e"
+default["python"]["scipy_checksum"] = "409f429a85592c8a99afa2fc047b80efdbd7ab0c9aa1f1effdd4692958aef228"
 
 default["python"]["tables_version"] = "3.0.0"
 default["python"]["tables_download_url"] = "https://pypi.python.org/packages/source/t/tables/tables-#{node["python"]["tables_version"]}.tar.gz"
