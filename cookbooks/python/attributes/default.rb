@@ -37,9 +37,12 @@ default["python"]["pandas_version"] = "0.12.0"
 default["python"]["pandas_download_url"] = "https://pypi.python.org/packages/source/p/pandas/pandas-#{node["python"]["pandas_version"]}.tar.gz"
 default["python"]["pandas_checksum"] = "be9b4c3611801b366873531bc87a87dd16b19e7d78fa84c21898cd007931c86d"
 
-default["python"]["scipy_version"] = "0.13.1"
+default["python"]["scipy_version"] = "0.13.2"
 default["python"]["scipy_download_url"] = "http://downloads.sourceforge.net/project/scipy/scipy/#{node["python"]["scipy_version"]}/scipy-#{node["python"]["scipy_version"]}.tar.gz"
-default["python"]["scipy_checksum"] = "409f429a85592c8a99afa2fc047b80efdbd7ab0c9aa1f1effdd4692958aef228"
+default["python"]["scipy_checksum"] = "485f194c7fe46da92e63bff524346ccaed4040c27df536bbde7b1edc9a07b449"
+
+default["python"]["setuptools_setup_download_url"] = "https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py"
+default["python"]["setuptools_setup_checksum"] = "8485d4534ffcef7ef1e726586da8a848f715066994ba84cf17bc5ae8f6f023d0"
 
 default["python"]["tables_version"] = "3.0.0"
 default["python"]["tables_download_url"] = "https://pypi.python.org/packages/source/t/tables/tables-#{node["python"]["tables_version"]}.tar.gz"
