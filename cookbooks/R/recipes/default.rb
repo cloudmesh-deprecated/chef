@@ -23,7 +23,7 @@ R_download_dir = node["R"]["download_dir"]
 R_checksum = node["R"]["checksum"]
 R_prefix = node["R"]["prefix"]
 
-packages = %w[atlas atlas-devel blas blas-devel gcc gcc-c++ bzip2-devel db4-devel expat-devel gdbm-devel java-1.7.0-openjdk java-1.7.0-openjdk-devel lapack lapack-devel make ncurses-devel openssl-devel pdfjam readline-devel sqlite-devel tk-devel zlib-devel]
+packages = %w[atlas atlas-devel blas blas-devel gcc gcc-c++ bzip2-devel db4-devel expat-devel gdbm-devel java-1.7.0-openjdk java-1.7.0-openjdk-devel lapack lapack-devel make ncurses-devel openssl-devel readline-devel sqlite-devel tk-devel zlib-devel]
 
 packages.each do |package|
   package "#{package}" do
