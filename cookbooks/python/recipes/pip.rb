@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "python::distribute"
+include_recipe "python::setuptools"
 
 python_prefix = node["python"]["prefix"]
 
