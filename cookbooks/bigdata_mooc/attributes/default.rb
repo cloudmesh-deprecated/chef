@@ -1,0 +1,5 @@
+default["bigdata_mooc"]["tmp_dir"] = "/tmp/IPythonFiles"
+default["bigdata_mooc"]["repo_url"] = "https://github.com/cglmoocs/IPythonFiles.git"
+default["bigdata_mooc"]["notebook_dir"] = "/home/ipynb"
+default["bigdata_mooc"]["user"] = "ipynb"
+default["bigdata_mooc"]["group"] = "ipynb"
