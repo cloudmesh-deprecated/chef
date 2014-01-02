@@ -24,6 +24,7 @@ nagios_plugins_version = node['nagios']['plugins']['version']
 nagios_plugins_download_url = node['nagios']['plugins']['download_url']
 nrpe_version = node['nagios']['nrpe']['version']
 nrpe_download_url = node['nagios']['nrpe']['download_url']
+nrpe_allowed_hosts = node['nagios']['nrpe']['allowed_hosts']
 
 user "nagios" do
   home "/opt/nagios"
@@ -93,6 +94,21 @@ template "/etc/init.d/nrpe" do
     :nagios_prefix => nagios_prefix)
 end
 
+template "#{nagios_prefix}/etc/nrpe.cfg" do
+  source "etc/nrpe.cfg.erb"
+  mode "0644"
+  owner "nagios"
+  group "nagios"
+  action :create
+  variables(
+    :allowed_hosts => nrpe_allowed_hosts)
+end
+
 service "nrpe" do
   action [ :enable, :start ]
+end
+
+# some how the above doesn't start nrpe. Here's a workaround.
+execute "start nrpe" do
+  command "/etc/init.d/nrpe start || /etc/init.d/nrpe restart"
 end
