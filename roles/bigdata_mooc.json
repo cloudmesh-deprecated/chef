@@ -1,0 +1,27 @@
+{
+  "name": "bigdata_mooc",
+  "description": "Big data MOOC role",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[hdf5]",
+    "recipe[python]",
+    "recipe[python::pip]",
+    "recipe[python::numpy]",
+    "recipe[python::scipy]",
+    "recipe[python::cython]",
+    "recipe[python::imaging]",
+    "recipe[python::matplotlib]",
+    "recipe[python::pandas]",
+    "recipe[python::tables]",
+    "recipe[zeromq]",
+    "recipe[ipython::public_notebook]",
+    "recipe[bigdata_mooc]"
+  ],
+  "env_run_lists": {
+  }
+}
