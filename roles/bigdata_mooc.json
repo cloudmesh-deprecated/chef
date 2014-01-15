@@ -20,7 +20,9 @@
     "recipe[python::tables]",
     "recipe[zeromq]",
     "recipe[ipython::public_notebook]",
-    "recipe[bigdata_mooc]"
+    "recipe[bigdata_mooc]",
+    "recipe[maven]", 
+    "recipe[x_windows]"
   ],
   "env_run_lists": {
   }
