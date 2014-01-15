@@ -1,7 +1,7 @@
 # vim: tabstop=4 expandtab shiftwidth=2 softtabstop=2
 #
 # Cookbook Name:: openstack
-# Recipe:: mgmt
+# Recipe:: controller
 # Author:: Koji Tanaka (<kj.tanaka@gmail.com>)
 #
 # Copyright 2014, FutureGrid
