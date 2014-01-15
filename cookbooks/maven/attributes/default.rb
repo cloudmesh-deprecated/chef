@@ -1,0 +1,5 @@
+default["maven"]["version"] = "3.1.1"
+default["maven"]["download_url"] = "http://www.interior-dsgn.com/apache/maven/maven-3/#{node["maven"]["version"]}/binaries/apache-maven-#{node["maven"]["version"]}-bin.tar.gz"
+default["maven"]["download_dir"] = "/tmp"
+default["maven"]["checksum"] = "077ed466455991d5abb4748a1d022e2d2a54dc4d557c723ecbacdc857c61d51b"
+default["maven"]["prefix"] = "/opt"
