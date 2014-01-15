@@ -7,9 +7,13 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
-  - name: centos-6.4
+    driver_config:
+      customize:
+        memory: 512
+        cpuexecutioncap: 50
 
 suites:
-  - name: default
+  - name: controller
     run_list:
+      - recipe[openstack::controller]
     attributes:
