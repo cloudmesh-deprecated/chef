@@ -21,6 +21,7 @@
     "recipe[zeromq]",
     "recipe[ipython::public_notebook]",
     "recipe[bigdata_mooc]",
+    "recipe[java]",
     "recipe[maven]", 
     "recipe[x_windows]"
   ],
