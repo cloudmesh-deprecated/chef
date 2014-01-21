@@ -58,3 +58,20 @@ git_hash.each do |git_dir, git_repo|
     action :sync
   end
 end
+
+dependencies_dir = "/home/ipynb/dependencies"
+ruby_block "set-env-classpath" do
+  block do
+    ENV["CLASSPATH"] = "#{ENV["CLASSPATH"]}:#{dependencies_dir}/*"
+  end
+  not_if { (ENV["CLASSPATH"].split(':').map { |directory| directory.eql?("#{dependencies_dir}/*") }).reduce{|r,e| r || e} }
+end
+
+directory "/etc/profile.d" do
+  mode 00755
+end
+
+file "/etc/profile.d/mooc_dependencies.sh" do
+  content "export CLASSPATH=${CLASSPATH}:#{dependencies_dir}/*"
+  mode 00755
+end
