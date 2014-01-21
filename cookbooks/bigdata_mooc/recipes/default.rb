@@ -47,3 +47,14 @@ script "install IPython notebooks" do
   EOH
   not_if "ls -l #{bigdata_mooc_notebook_dir}/*.ipynb > /dev/null 2>&1"
 end
+
+git_hash = { "/home/ipynb/java" => "https://github.com/cglmoocs/JavaFiles.git",
+             "/home/ipynb/python" => "https://github.com/cglmoocs/PythonFiles.git",
+             "/home/ipynb/dependencies" => "https://github.com/cglmoocs/Dependencies.git"}
+git_hash.each do |git_dir, git_repo|
+  git "#{git_dir}" do
+    repository "#{git_repo}"
+    reference "master"
+    action :sync
+  end
+end
