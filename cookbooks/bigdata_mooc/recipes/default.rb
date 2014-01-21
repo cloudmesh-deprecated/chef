@@ -64,7 +64,7 @@ ruby_block "set-env-classpath" do
   block do
     ENV["CLASSPATH"] = "#{ENV["CLASSPATH"]}:#{dependencies_dir}/*"
   end
-  not_if { (ENV["CLASSPATH"].split(':').map { |directory| directory.eql?("#{dependencies_dir}/*") }).reduce{|r,e| r || e} }
+  not_if { (ENV.fetch("CLASSPATH", "").split(':').map { |directory| directory.eql?("#{dependencies_dir}/*") }).reduce{|r,e| r || e} }
 end
 
 directory "/etc/profile.d" do
