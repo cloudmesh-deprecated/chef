@@ -33,9 +33,9 @@ default["python"]["numpy_version"] = "1.8.0"
 default["python"]["numpy_download_url"] = "https://pypi.python.org/packages/source/n/numpy/numpy-#{node["python"]["numpy_version"]}.tar.gz"
 default["python"]["numpy_checksum"] = "2764d0819acc77e9ff81b060fe7f69530b0d85c26ac9d162639b787cb227d253"
 
-default["python"]["pandas_version"] = "0.12.0"
+default["python"]["pandas_version"] = "0.13.0"
 default["python"]["pandas_download_url"] = "https://pypi.python.org/packages/source/p/pandas/pandas-#{node["python"]["pandas_version"]}.tar.gz"
-default["python"]["pandas_checksum"] = "be9b4c3611801b366873531bc87a87dd16b19e7d78fa84c21898cd007931c86d"
+default["python"]["pandas_checksum"] = "5bb3f7a5f24fe8280e84e5407dc129364e7825cbe366b79676bd5f37a9b2bf0e"
 
 default["python"]["scipy_version"] = "0.13.2"
 default["python"]["scipy_download_url"] = "http://downloads.sourceforge.net/project/scipy/scipy/#{node["python"]["scipy_version"]}/scipy-#{node["python"]["scipy_version"]}.tar.gz"
