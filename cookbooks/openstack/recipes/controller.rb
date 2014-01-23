@@ -231,4 +231,110 @@ template "/etc/keystone/keystone.conf" do
   )
 end
 
+template "/etc/nova/api-paste.ini" do
+  source "nova_api-paste.ini.erb"
+  owner "nova"
+  group "nova"
+  mode 0640
+  action :create
+  variables(
+    :service_password => service_password,
+    :controller_admin_address => controller_admin_address
+  )
+end
+
+template "/etc/glance/glance-api.conf" do
+  source "glance-api.conf.erb"
+  owner "glance"
+  group "glance"
+  mode 0644
+  action :create
+  variables(
+    :controller_admin_address => controller_admin_address,
+    :controller_internal_address => controller_internal_address,
+    :controller_public_address => controller_public_address,
+    :service_password => service_password,
+    :mysql_password => mysql_password,
+    :rabbit_password => rabbit_password
+  )
+end
+
+template "/etc/glance/glance-registry.conf" do
+  source "glance-registry.conf.erb"
+  owner "glance"
+  group "glance"
+  mode 0644
+  action :create
+  variables(
+    :controller_admin_address => controller_admin_address,
+    :controller_internal_address => controller_internal_address,
+    :service_password => service_password,
+    :mysql_password => mysql_password,
+  )
+end
+
+template "/etc/cinder/cinder.conf" do
+  source "cinder.conf.erb"
+  owner "cinder"
+  group "cinder"
+  mode 0644
+  action :create
+  variables(
+    :controller_internal_address => controller_internal_address,
+    :rabbit_password => rabbit_password,
+    :mysql_password => mysql_password,
+  )
+end
+
+template "/etc/cinder/api-paste.ini" do
+  source "cinder_api-paste.ini.erb"
+  owner "cinder"
+  group "cinder"
+  mode 0640
+  action :create
+  variables(
+    :service_password => service_password,
+    :controller_admin_address => controller_admin_address
+  )
+end
+
+script "do-db-sync" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  keystone-manage db_sync
+  glance-manage db_sync
+  nova-manage db sync
+  cinder-manage db sync
+  touch /tmp/do-db-sync
+  EOH
+  not_if { ::File.exists?("/tmp/do-db-sync")}
+end
+
+script "restart-keystone" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  start keystone || restart keystone
+  sleep 5
+  status keystone
+  /tmp/restart-keystone
+  EOH
+  not_if { ::File.exists?("/tmp/restart-keystone")}
+end
+
+template "/root/bin/sample_data.sh" do
+  source "sample_data.sh.erb"
+  owner "root"
+  group "root"
+  mode 0700
+  action :create
+  variables(
+    :admin_password => admin_password,
+    :service_password => service_password,
+    :controller_admin_address => controller_admin_address,
+    :controller_internal_address => controller_internal_address,
+    :controller_public_address => controller_public_address,
+  )
+end
 

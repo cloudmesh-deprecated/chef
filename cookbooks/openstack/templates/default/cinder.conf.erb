@@ -1,0 +1,27 @@
+[DEFAULT]
+rootwrap_config = /etc/cinder/rootwrap.conf
+api_paste_confg = /etc/cinder/api-paste.ini
+iscsi_helper = tgtadm
+volume_name_template = volume-%s
+volume_group = cinder-volumes
+verbose = True
+auth_strategy = keystone
+state_path = /var/lib/cinder
+lock_path = /var/lock/cinder
+volumes_dir = /var/lib/cinder/volumes
+# LOGGING
+log_file=cinder.log
+log_dir=/var/log/cinder
+
+# OSAPI
+osapi_volume_extension = cinder.api.openstack.volume.contrib.standard_extensions
+osapi_max_limit = 2000
+
+# RABBIT
+rabbit_host=<%= @controller_internal_address %>
+rabbit_virtual_host=/nova
+rabbit_userid=nova
+rabbit_password=<%= @rabbit_password %>
+
+# MYSQL
+sql_connection = mysql://openstack:<%= @mysql_password %>@<%= @controller_internal_address %>/cinder
