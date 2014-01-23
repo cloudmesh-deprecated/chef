@@ -26,7 +26,7 @@ mysql_password = node['openstack']['mysql_password']
 rabbit_password = node['openstack']['rabbit_password']
 controller_public_address = node['openstack']['controller_public_address']
 controller_admin_address = node['openstack']['controller_admin_address']
-controller_iternal_address = node['openstack']['controller_internal_address']
+controller_internal_address = node['openstack']['controller_internal_address']
 fixed_range = node['openstack']['fixed_range']
 mysql_access = node['openstack']['mysql_access']
 public_interface = node['openstack']['public_interface']
@@ -45,9 +45,24 @@ cookbook_file "/etc/apt/sources.list.d/havana.list" do
 end
 
 execute "apt-get-update" do
-  command "apt-get update && apt-get -y dist-upgrade"
-  ignore_failure true
-  action :run
+  command "apt-get update && touch /tmp/apt-get-update"
+  not_if { ::File.exists?("/tmp/apt-get-update")}
+end
+
+execute "apt-get-upgrade" do
+  command "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" dist-upgrade"
+  not_if { ::File.exists?("/tmp/apt-get-upgrade")}
+end
+
+script "set-mysql-admin-password" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  echo mysql-server mysql-server/root_password password #{mysql_admin_password} | debconf-set-selections
+  echo mysql-server mysql-server/root_password_again password #{mysql_admin_password} | debconf-set-selections
+  touch /tmp/set-mysql-admin-password
+  EOH
+  not_if { ::File.exists?("/tmp/set-mysql-admin-password")}
 end
 
 packages = %w[ntp
@@ -64,6 +79,8 @@ packages = %w[ntp
               cinder-scheduler
               nova-api
               nova-cert
+              nova-compute
+              nova-compute-kvm
               nova-objectstore
               nova-network
               nova-scheduler
@@ -79,4 +96,109 @@ packages.each do |package|
   package "#{package}" do
     action :install
   end
+end
+
+package "openstack-dashboard-ubuntu-theme" do
+  action :purge
+end
+
+script "delete-default-vnet" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  virsh net-autostart default --disable
+  virsh net-destroy default
+  touch /tmp/delete-default-vnet
+  EOH
+  not_if { ::File.exists?("/tmp/delete-default-vnet")}
+end
+
+template "/etc/nova/nova.conf" do
+  source "nova.conf.erb"
+  mode 0644
+  owner "nova"
+  group "nova"
+  action :create
+  variables(
+    :public_interface => public_interface,
+    :internal_interface => internal_interface,
+    :fixed_range => fixed_range,
+    :controller_public_address => controller_public_address,
+    :controller_internal_address => controller_internal_address,
+    :rabbit_password => rabbit_password,
+    :mysql_password => mysql_password,
+  )
+end
+
+cookbook_file "/etc/sysctl.conf" do
+  source "sysctl.conf"
+  mode 0644
+  owner "root"
+  group "root"
+  action :create
+end
+
+template "/etc/memcached.conf" do
+  source "memcached.conf.erb"
+  mode 0644
+  owner "root"
+  group "root"
+  action :create
+  variables(
+    :controller_admin_address => controller_admin_address
+  )
+end
+
+execute "restart-memcached" do
+  command "service memcached restart && touch /tmp/restart-memcached"
+  not_if { ::File.exists?("/tmp/restart-memcached")}
+end
+
+script "do-rabbitmqctl" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  rabbitmqctl add_vhost /nova
+  rabbitmqctl add_user nova #{rabbit_password}
+  rabbitmqctl set_permissions -p /nova nova ".*" ".*" ".*"
+  rabbitmqctl delete_user guest
+  touch /tmp/do-rabbitmqctl
+  EOH
+  not_if { ::File.exists?("/tmp/do-rabbitmqctl")}
+end
+
+cookbook_file "/etc/mysql/my.cnf" do
+  source "my.cnf"
+  mode 0644
+  owner "root"
+  group "root"
+  action :create
+end
+
+execute "restart-mysql" do
+  command "service mysql restart && touch /tmp/restart-mysql"
+  not_if { ::File.exists?("/tmp/restart-mysql")}
+end
+
+template "/root/mysql_db_setting.txt" do
+  source "mysql_db_setting.txt.erb"
+  mode 0600
+  owner "root"
+  group "root"
+  action :create
+  variables(
+    :controller_admin_address => controller_admin_address,
+    :mysql_password => mysql_password,
+    :mysql_access => mysql_access
+  )
+end
+
+script "mysql-db-setting" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  mysql -uroot -p#{mysql_admin_password} < /root/mysql_db_setting.txt
+  touch /tmp/mysql-db-setting
+  EOH
+  not_if { ::File.exists?("/tmp/mysql-db-setting")}
 end
