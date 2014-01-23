@@ -362,3 +362,21 @@ template "/root/creds/admin_credential" do
   )
 end
 
+script "create-network" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  source admin_credential
+  nova-manage network create \
+    --label private \
+    --num_networks=1 \
+    --fixed_range_v4=#{fixed_range} \
+    --bridge_interface=#{internal_interface} \
+    --network_size=256 \
+    --multi_host=T
+  touch /tmp/create-network
+  EOH
+  not_if { ::File.exists?("/tmp/create-network")}
+end
+
+
