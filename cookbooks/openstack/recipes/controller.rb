@@ -50,7 +50,7 @@ execute "apt-get-update" do
 end
 
 execute "apt-get-upgrade" do
-  command "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" dist-upgrade"
+  command "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" dist-upgrade && touch /tmp/apt-get-upgrade"
   not_if { ::File.exists?("/tmp/apt-get-upgrade")}
 end
 
@@ -315,10 +315,10 @@ script "restart-keystone" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  start keystone || restart keystone
+  restart keystone
   sleep 5
   status keystone
-  /tmp/restart-keystone
+  touch /tmp/restart-keystone
   EOH
   not_if { ::File.exists?("/tmp/restart-keystone")}
 end
@@ -337,4 +337,10 @@ template "/root/bin/sample_data.sh" do
     :controller_public_address => controller_public_address
   )
 end
+
+execute "set-keystone-data" do
+  command "/root/bin/sample_data.sh && touch /tmp/set-keystone-data"
+  not_if { ::File.exists?("/tmp/set-keystone-data")}
+end
+
 
