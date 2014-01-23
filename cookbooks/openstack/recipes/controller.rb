@@ -366,7 +366,7 @@ script "create-network" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  source admin_credential
+  source /root/creds/admin_credential
   nova-manage network create \
     --label private \
     --num_networks=1 \
