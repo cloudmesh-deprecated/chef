@@ -269,7 +269,7 @@ template "/etc/glance/glance-registry.conf" do
     :controller_admin_address => controller_admin_address,
     :controller_internal_address => controller_internal_address,
     :service_password => service_password,
-    :mysql_password => mysql_password,
+    :mysql_password => mysql_password
   )
 end
 
@@ -282,7 +282,7 @@ template "/etc/cinder/cinder.conf" do
   variables(
     :controller_internal_address => controller_internal_address,
     :rabbit_password => rabbit_password,
-    :mysql_password => mysql_password,
+    :mysql_password => mysql_password
   )
 end
 
@@ -334,7 +334,7 @@ template "/root/bin/sample_data.sh" do
     :service_password => service_password,
     :controller_admin_address => controller_admin_address,
     :controller_internal_address => controller_internal_address,
-    :controller_public_address => controller_public_address,
+    :controller_public_address => controller_public_address
   )
 end
 
