@@ -126,7 +126,7 @@ template "/etc/nova/nova.conf" do
     :controller_public_address => controller_public_address,
     :controller_internal_address => controller_internal_address,
     :rabbit_password => rabbit_password,
-    :mysql_password => mysql_password,
+    :mysql_password => mysql_password
   )
 end
 
