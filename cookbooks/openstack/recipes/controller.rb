@@ -343,4 +343,22 @@ execute "set-keystone-data" do
   not_if { ::File.exists?("/tmp/set-keystone-data")}
 end
 
+directory "/root/creds" do
+  owner "root"
+  group "root"
+  mode 0700
+  action :create
+end
+
+template "/root/creds/admin_credential" do
+  source "admin_credential.erb"
+  owner "root"
+  group "root"
+  mode 0600
+  action :create
+  variables(
+    :admin_password => admin_password,
+    :controller_admin_address => controller_admin_address
+  )
+end
 
