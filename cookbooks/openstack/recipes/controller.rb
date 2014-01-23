@@ -202,3 +202,33 @@ script "mysql-db-setting" do
   EOH
   not_if { ::File.exists?("/tmp/mysql-db-setting")}
 end
+
+directory "/root/bin" do
+  owner "root"
+  group "root"
+  mode 0700
+  action :create
+end
+
+cookbook_file "/root/bin/openstack.sh" do
+  source "openstack.sh"
+  owner "root"
+  group "root"
+  mode 0700
+  action :create
+end
+
+template "/etc/keystone/keystone.conf" do
+  source "keystone.conf.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  action :create
+  variables(
+    :admin_password => admin_password,
+    :mysql_password => mysql_password,
+    :controller_internal_address => controller_internal_address
+  )
+end
+
+
