@@ -298,6 +298,16 @@ template "/etc/cinder/api-paste.ini" do
   )
 end
 
+script "stop-services" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  /root/bin/openstach.sh stop
+  touch /tmp/stop-services
+  EOH
+  not_if { ::File.exists?("/tmp/stop-services")}
+end
+
 script "do-db-sync" do
   interpreter "bash"
   user "root"
@@ -311,16 +321,14 @@ script "do-db-sync" do
   not_if { ::File.exists?("/tmp/do-db-sync")}
 end
 
-script "restart-keystone" do
+script "start-services" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  restart keystone
-  sleep 5
-  status keystone
-  touch /tmp/restart-keystone
+  /root/bin/openstach.sh start
+  touch /tmp/stop-services
   EOH
-  not_if { ::File.exists?("/tmp/restart-keystone")}
+  not_if { ::File.exists?("/tmp/start-services")}
 end
 
 template "/root/bin/sample_data.sh" do
@@ -379,4 +387,46 @@ script "create-network" do
   not_if { ::File.exists?("/tmp/create-network")}
 end
 
+script "register-ubuntu-image" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  source /root/creds/admin_credential
+  wget http://uec-images.ubuntu.com/releases/precise/release/ubuntu-12.04-server-cloudimg-amd64-disk1.img
+  glance image-create \
+    --name ubuntu-12.04 \
+    --disk-format qcow2 \
+    --container-format bare \
+    --file ubuntu-12.04-server-cloudimg-amd64-disk1.img
+  rm -f ubuntu-12.04-server-cloudimg-amd64-disk1.img
+  touch /tmp/register-ubuntu-image
+  EOH
+  not_if { ::File.exists?("/tmp/register-ubuntu-image")}
+end
+
+script "add-keypair" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  source /root/creds/admin_credential
+  nova keypair-add key1 > /root/creds/key1.pem
+  chmod 600 /root/creds/key1.pem
+  echo StrictHostKeyChecking no >> ~/.ssh/config
+  echo UserKnownHostsFile=/dev/null >> ~/.ssh/config
+  touch /tmp/add-keypair
+  EOH
+  not_if { ::File.exists?("/tmp/add-keypair")}
+end
+
+script "add-secgroup-rules" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  source /root/creds/admin_credential
+  nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
+  nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
+  touch /tmp/add-secgroup-rules
+  EOH
+  not_if { ::File.exists?("/tmp/add-secgroup-rules")}
+end
 
