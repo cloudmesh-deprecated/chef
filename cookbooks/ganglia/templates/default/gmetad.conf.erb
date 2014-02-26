@@ -1,0 +1,11 @@
+<%
+# Iterate through the data_sources, configuring each.
+@data_sources.keys.each do |name|
+  data_source = @data_sources[name]
+  host = data_source["host"]
+  port = data_source["port"]
+%>
+data_source "<%= name %>" <%= host %>:<%= port %>
+<%
+end
+%>
