@@ -37,6 +37,7 @@ template "/etc/ganglia/gmond.conf" do
   mode "0644"
   variables(
     :cluster_name => sender_name,
+    :receiver_name => receiver_name,
     :host => receiver_name,
     :port => port)
 end

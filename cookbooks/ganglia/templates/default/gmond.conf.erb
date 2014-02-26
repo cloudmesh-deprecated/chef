@@ -40,16 +40,14 @@ udp_send_channel {
                        # this, the metrics may appear to come from any
                        # interface and the DNS names associated with
                        # those IPs will be used to create the RRDs.
-  mcast_join = 239.2.11.71
+  host = <%= @receiver_name %>
   port = <%= @port %>
   ttl = 1
 }
 
 /* You can specify as many udp_recv_channels as you like as well. */
 udp_recv_channel {
-  mcast_join = 239.2.11.71
   port = <%= @port %>
-  bind = 239.2.11.71
 }
 
 /* You can specify as many tcp_accept_channels as you like to share
