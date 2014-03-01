@@ -116,32 +116,31 @@ SelectTypeParameters=CR_Core_Memory
 #PriorityWeightPartition= 
 #PriorityWeightQOS= 
 # 
-# 
-# LOGGING AND ACCOUNTING 
-#AccountingStorageEnforce=0 
+#
+#AccountingStorageEnforce=0
 #AccountingStorageHost=
-#AccountingStorageLoc=
+AccountingStorageLoc=/var/log/slurm/accounting.log
 #AccountingStoragePass=
 #AccountingStoragePort=
-AccountingStorageType=accounting_storage/none
+AccountingStorageType=accounting_storage/filetxt
 #AccountingStorageUser=
 AccountingStoreJobComment=YES
 ClusterName=cluster
-#DebugFlags= 
+#DebugFlags=
 #JobCompHost=
-#JobCompLoc=
+JobCompLoc=/var/log/slurm/jobcomp.log
 #JobCompPass=
 #JobCompPort=
-JobCompType=jobcomp/none
+JobCompType=jobcomp/filetxt
 #JobCompUser=
 JobAcctGatherFrequency=30
-JobAcctGatherType=jobacct_gather/none
+JobAcctGatherType=jobacct_gather/linux
 SlurmctldDebug=3
 SlurmctldLogFile=/var/log/slurm/slurmctld.log
 SlurmdDebug=3
 SlurmdLogFile=/var/log/slurm/slurmd.log
-#SlurmSchedLogFile=
-#SlurmSchedLogLevel=
+SlurmSchedLogFile=/var/log/slurm/slurmsched.log
+SlurmSchedLogLevel=1
 # 
 # 
 # POWER SAVE SUPPORT FOR IDLE NODES (optional) 
@@ -157,5 +156,5 @@ SlurmdLogFile=/var/log/slurm/slurmd.log
 # 
 # 
 # COMPUTE NODES 
-NodeName=node[001-003] CPUs=1 
+NodeName=node[001-003] State=CLOUD
 PartitionName=batch Nodes=node[001-003] Default=YES MaxTime=INFINITE State=UP

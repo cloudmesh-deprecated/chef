@@ -1,9 +1,9 @@
-default["slurm"]["version"] = "2.6.5"
+default["slurm"]["version"] = "2.6.6-2"
 default["slurm"]["download_url"] = "http://www.schedmd.com/download/latest/slurm-#{node["slurm"]["version"]}.tar.bz2"
 default["slurm"]["download_dir"] = "/tmp"
-default["slurm"]["checksum"] = "4fc281d18e4614636e3210469c32a9670a688589fb909b3c5e2fa3721e9b5eb0"
+default["slurm"]["checksum"] = "7c529b3dd54589f7cf2b68780cd57c9d9da363f6fb83c6a088ceae3fbb18e1e7"
 default["slurm"]["prefix"] = "/usr/local"
-default["slurm"]["sysconfdir"] = "#{node["slurm"]["prefix"]}/etc"
+default["slurm"]["sysconfdir"] = "/etc/slurm"
 
 # TODO: Determine user and group information.
 default["slurm"]["user"] = "slurm"
