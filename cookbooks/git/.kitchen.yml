@@ -17,5 +17,6 @@ platforms:
 suites:
   - name: git
     run_list:
-      - recipe[git]
+      - recipe[git::default]
+      - recipe[git::module]
     attributes:
