@@ -1,4 +1,4 @@
-# cookbooks/git cookbook
+# git cookbook
 
 # Requirements
 
