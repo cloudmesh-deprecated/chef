@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-6.5
+    driver_config:
+      box: opscode-centos-6.5
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box
+      customize:
+        memory: 256
+        cpuexecutioncap: 50
+
+suites:
+  - name: nrpe
+    run_list:
+      - recipe[nagios::nrpe]
+    attributes:
