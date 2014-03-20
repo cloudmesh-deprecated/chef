@@ -1,4 +1,4 @@
-name             'cookbooks/git'
+name             'git'
 maintainer       'YOUR_NAME'
 maintainer_email 'YOUR_EMAIL'
 license          'All rights reserved'

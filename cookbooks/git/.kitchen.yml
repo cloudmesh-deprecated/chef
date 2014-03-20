@@ -6,16 +6,16 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: centos-6.5
+  - name: centos5
     driver_config:
-      box: opscode-centos-6.5
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box
+      box: centos5
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10_chef-provisionerless.box
       customize:
-        memory: 256
+        memory: 512
         cpuexecutioncap: 50
 
 suites:
-  - name: nrpe
+  - name: git
     run_list:
-      - recipe[nagios::nrpe]
+      - recipe[git]
     attributes:
