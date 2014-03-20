@@ -7,7 +7,7 @@ proc moduleVersion { } {
 }
 
 set ver        [moduleVersion]
-set path       <%= git_install_dir %>/git-$ver
+set path       <%= @git_install_dir %>/git-$ver
 
 # this is shown if you call module help torque
 proc ModulesHelp { } {
