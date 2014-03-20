@@ -21,9 +21,14 @@ directory "#{git_modulefiles_dir}/git" do
 	action :create
 end
 
-cookbook_file "module_file" do
-	path "#{git_modulefiles_dir}/git/#{git_version}"
-	action :create_if_missing
+template "#{git_modulefiles_dir}/git/#{git_version}" do
+	source "module_file.erb"
+	mode "0644"
+	owner "root"
+	group "root"
+	action :create
+	variables(
+	  :git_install_dir => git_install_dir)
 end
 
 template "#{git_modulefiles_dir}/git/.version" do
