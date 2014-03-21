@@ -1,0 +1,41 @@
+#%Module1.0#########################################################
+proc moduleVersion { } {
+        if { ! [regexp {[^/]*$} [module-info name] ver] } {
+                puts stderr "Internal modulefile error, please send a bug report to help@futuregrid.org"
+        }
+        return $ver
+}
+
+set ver        [moduleVersion]
+set path       <%= @git_install_dir %>/git-$ver
+
+# this is shown if you call module help torque
+proc ModulesHelp { } {
+   puts stderr "Git is a free & open source, distributed version control system"
+   puts stderr "See http://git-scm.com/ for details" 
+}
+
+# this is shown if you call module whatis git 
+module-whatis   "Sets up git in your environment"
+
+# make sure this module is not called twice
+conflict git
+
+# make sure all the libs and executables can be found in the path-variables
+prepend-path PATH $path/bin
+prepend-path LD_LIBRARY_PATH $path/lib
+prepend-path LD_LIBRARY_PATH $path/lib64
+prepend-path INCLUDE $path/include
+prepend-path MANPATH $path/man
+
+if [ module-info mode load ] {
+	puts stderr "git version $ver loaded"
+}
+
+if [ module-info mode switch2 ] {
+	puts stderr "git version $ver loaded"
+}
+
+if [ module-info mode remove ] {
+	puts stderr "git version $ver unloaded"
+}
