@@ -99,7 +99,8 @@ template "/etc/cobbler/modules.conf" do
   group "root"
   action :create
   variables(
-    :module_authentication => module_authentication
+    :module_authentication => module_authentication,
+    :module_authorization => module_authorization
   )
   notifies :restart, "service[cobblerd]", :immediately
   notifies :restart, "service[httpd]", :immediately
