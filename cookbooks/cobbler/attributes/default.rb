@@ -1,0 +1,5 @@
+default['cobbler']['server'] = "127.0.0.1"
+default['cobbler']['next_server'] = "127.0.0.1"
+default['cobbler']['password'] = "$1$mF86/UHC$WvcIcX2t6crBz2onWxyac."
+default['cobbler']['module_authentication'] = "authn_pam"
+default['cobbler']['module_authorization'] = "authz_ownership"
