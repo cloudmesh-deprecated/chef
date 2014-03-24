@@ -5,6 +5,7 @@ server = node['cobbler']['server']
 next_server = node['cobbler']['next_server']
 password = node['cobbler']['password']
 module_authentication = node['cobbler']['module_authentication']
+module_authorization = node['cobbler']['module_authorization']
 
 #
 # Install packages
