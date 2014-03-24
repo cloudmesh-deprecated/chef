@@ -13,7 +13,8 @@ module_authorization = node['cobbler']['module_authorization']
 packages = %w[ cobbler
                cobbler-web
                pykickstart
-               cman ]
+               cman
+               wget ]
 
 packages.each do |package|
   package "#{package}" do
