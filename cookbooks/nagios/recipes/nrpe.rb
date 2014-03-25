@@ -26,6 +26,10 @@ nrpe_version = node['nagios']['nrpe']['version']
 nrpe_download_url = node['nagios']['nrpe']['download_url']
 nrpe_allowed_hosts = node['nagios']['nrpe']['allowed_hosts']
 
+package 'gcc' do
+  action :install
+end
+
 user "nagios" do
   home "/opt/nagios"
   shell "/bin/bash"
