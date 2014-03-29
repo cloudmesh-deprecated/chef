@@ -2,7 +2,7 @@
 # Cookbook Name:: hdf5
 # Recipe:: default
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2014, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ hdf5_download_dir = node["hdf5"]["download_dir"]
 hdf5_checksum = node["hdf5"]["checksum"]
 hdf5_prefix = node["hdf5"]["prefix"]
 
-#packages = %w[gcc gcc-c++ make]
+packages = %w[gcc gcc-c++ make]
 
-#packages.each do |package|
-#  package "#{package}" do
-#    action :install
-#  end
-#end
+packages.each do |package|
+  package "#{package}" do
+    action :install
+  end
+end
 
 remote_file "#{hdf5_download_dir}/hdf5-#{hdf5_version}.tar.bz2" do
   source "#{hdf5_download_url}"
