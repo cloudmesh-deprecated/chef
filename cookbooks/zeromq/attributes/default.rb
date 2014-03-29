@@ -1,5 +1,5 @@
-default["zeromq"]["version"] = "4.0.3"
+default["zeromq"]["version"] = "4.0.4"
 default["zeromq"]["download_url"] = "http://download.zeromq.org/zeromq-#{node["zeromq"]["version"]}.tar.gz"
 default["zeromq"]["download_dir"] = "/tmp"
-default["zeromq"]["checksum"] = "57fa9205bda2813c6f7645d1d6016838d27bac833c1edebaecc7f3626144711a"
+default["zeromq"]["checksum"] = ""
 default["zeromq"]["prefix"] = "/usr/local"
