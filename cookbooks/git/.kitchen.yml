@@ -1,0 +1,22 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos5
+    driver_config:
+      box: centos5
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10_chef-provisionerless.box
+      customize:
+        memory: 512
+        cpuexecutioncap: 50
+
+suites:
+  - name: git
+    run_list:
+      - recipe[git::default]
+      - recipe[git::module]
+    attributes:
