@@ -1,6 +1,6 @@
 Description
 ===========
-Installs Python on CentOS 6.4
+Installs Python on CentOS 6.5
 
 Requirements
 ============

@@ -30,7 +30,7 @@ packages.each do |package|
   end
 end
 
-pip_packages = %w[python-dateutil==1.5 pytz==2013d numexpr bottleneck openpyxl xlrd xlwt xlutils beautifulsoup4 html5lib lxml]
+pip_packages = %w[python-dateutil==1.5 pytz==2014.2 numexpr bottleneck openpyxl xlrd xlwt xlutils beautifulsoup4 html5lib lxml]
 pip_packages.each do |pip_package|
   execute "install #{pip_package}" do
     command "#{python_prefix}/bin/pip install #{pip_package}"

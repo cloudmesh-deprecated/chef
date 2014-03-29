@@ -19,7 +19,7 @@
 
 python_prefix = node["python"]["prefix"]
 
-packages = %w{freetype freetype-devel lcms-devel libjpeg libjpeg-devel libtiff libtiff-devel zlib zlib-devel}
+packages = %w{freetype freetype-devel lcms-devel libjpeg-turbo libjpeg-turbo-devel libtiff libtiff-devel zlib zlib-devel}
 packages.each do |package|
   package "#{package}" do
     action :install
