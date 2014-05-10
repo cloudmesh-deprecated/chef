@@ -27,6 +27,17 @@ slurm_uid = node["slurm"]["uid"]
 slurm_group = node["slurm"]["group"]
 slurm_gid = node["slurm"]["gid"]
 
+slurm_baseurl = node["slurm"]["baseurl"]
+
+# Create yum repo file.
+template "/etc/yum.repos.d/slurm.repo" do
+  source "slurm.repo.erb"
+  mode "0644"
+  variables(
+    :baseurl => slurm_baseurl
+  )
+end
+
 packages = %w[slurm slurm-munge]
 
 packages.each do |package|
@@ -45,7 +56,7 @@ end
 
 # TODO: Determine how we want to populate NodeName values.
 # Create the slurm.conf file.
-template "#{slurm_sysconfdir}/slurm.conf" do
+template "#{File.join(slurm_sysconfdir, "slurm.conf")}" do
   source "slurm.conf.erb"
   mode "0644"
   variables(

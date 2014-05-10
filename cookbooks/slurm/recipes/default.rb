@@ -72,6 +72,12 @@ cookbook_file "/etc/munge/munge.key" do
   group "munge"
 end
 
+directory "#{slurm_sysconfdir}" do
+  mode "0755"
+  action :create
+  recursive true
+end
+
 # TODO: Determine how we want to populate NodeName values.
 # Create the slurm.conf file.
 template "#{slurm_sysconfdir}/slurm.conf" do
