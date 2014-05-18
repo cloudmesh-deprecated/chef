@@ -17,15 +17,17 @@
 # limitations under the License.
 #
 
-slurm_sysconfdir = node["slurm"]["sysconfdir"]
+slurm_hash = node["slurm"]
 
-slurm_control_machine = node["slurm"]["control_machine"]
-slurm_control_addr = node["slurm"]["control_addr"]
+slurm_sysconfdir = slurm_hash.fetch("sysconfdir", "/etc/slurm-llnl")
 
-slurm_user = node["slurm"]["user"]
-slurm_group = node["slurm"]["group"]
+slurm_control_machine = slurm_hash["control_machine"]
+slurm_control_addr = slurm_hash["control_addr"]
 
-slurm_node_list = node["slurm"]["node_list"]
+slurm_user = slurm_hash["user"]
+slurm_group = slurm_hash["group"]
+
+slurm_node_list = slurm_hash["node_list"]
 
 packages = %w[slurm-llnl munge]
 packages.each do |package|

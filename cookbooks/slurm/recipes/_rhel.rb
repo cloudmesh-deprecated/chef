@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-slurm_sysconfdir = node["slurm"]["sysconfdir"]
-
 slurm_hash = node["slurm"]
+
+slurm_sysconfdir = slurm_hash.fetch("sysconfdir", "/etc/slurm")
 
 slurm_user = slurm_hash["user"]
 slurm_uid = slurm_hash["uid"]
