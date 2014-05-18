@@ -17,74 +17,12 @@
 # limitations under the License.
 #
 
-slurm_sysconfdir = node["slurm"]["sysconfdir"]
+platform_family = node["platform_family"]
 
-slurm_control_machine = node["slurm"]["control_machine"]
-slurm_control_addr = node["slurm"]["control_addr"]
-
-slurm_user = node["slurm"]["user"]
-slurm_uid = node["slurm"]["uid"]
-slurm_group = node["slurm"]["group"]
-slurm_gid = node["slurm"]["gid"]
-
-slurm_baseurl = node["slurm"]["baseurl"]
-
-# Create yum repo file.
-template "/etc/yum.repos.d/slurm.repo" do
-  source "slurm.repo.erb"
-  mode "0644"
-  variables(
-    :baseurl => slurm_baseurl
-  )
-end
-
-packages = %w[slurm slurm-munge]
-
-packages.each do |package|
-  package "#{package}" do
-    action :install
-  end
-end
-
-# TODO: Determine how we want to create the munge.key file.
-cookbook_file "/etc/munge/munge.key" do
-  source "munge.key"
-  mode "0400"
-  owner "munge"
-  group "munge"
-end
-
-# TODO: Determine how we want to populate NodeName values.
-# Create the slurm.conf file.
-template "#{File.join(slurm_sysconfdir, "slurm.conf")}" do
-  source "slurm.conf.erb"
-  mode "0644"
-  variables(
-    :control_machine => slurm_control_machine,
-    :control_addr => slurm_control_addr )
-end
-
-# Create the slurm group and user.
-group "#{slurm_group}" do
-  gid "#{slurm_gid}"
-end
-
-user "#{slurm_user}" do
-  uid "#{slurm_uid}"
-  gid "#{slurm_group}"
-end
-
-# Create the log directory. This is found in the slurm.conf file.
-directory "/var/log/slurm" do
-  owner "#{slurm_user}"
-  group "#{slurm_group}"
-  mode 00755
-  action :create
-end
-
-services = %w[munge slurm]
-services.each do |service|
-  service "#{service}" do
-    action [ :enable, :start ]
-  end
+begin
+  include_recipe "slurm::_#{platform_family}"
+rescue Chef::Exceptions::RecipeNotFound
+  Chef::Log.warn <<-EOH
+  The slurm cookbook does not have support for the #{platform_family} family.
+  EOH
 end

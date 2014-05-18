@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: slurm
-# Recipe:: default
+# Recipe:: _rhel
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2014, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,13 +17,7 @@
 # limitations under the License.
 #
 
-slurm_version = node["slurm"]["version"]
-slurm_download_url = node["slurm"]["download_url"]
-slurm_download_dir = node["slurm"]["download_dir"]
-slurm_checksum = node["slurm"]["checksum"]
-slurm_prefix = node["slurm"]["prefix"]
 slurm_sysconfdir = node["slurm"]["sysconfdir"]
-slurm_version_dir = File.join(slurm_download_dir, "slurm-#{slurm_version}")
 
 slurm_control_machine = node["slurm"]["control_machine"]
 slurm_control_addr = node["slurm"]["control_addr"]
@@ -35,35 +29,23 @@ slurm_gid = node["slurm"]["gid"]
 
 slurm_node_list = node["slurm"]["node_list"]
 
-packages = %w[gcc gcc-c++ mailx make munge munge-devel munge-libs openssl-devel pam-devel perl perl-ExtUtils-MakeMaker readline-devel]
+slurm_baseurl = node["slurm"]["baseurl"]
+
+# Create yum repo file.
+template "/etc/yum.repos.d/slurm.repo" do
+  source "slurm.repo.erb"
+  mode "0644"
+  variables(
+    :baseurl => slurm_baseurl
+  )
+end
+
+packages = %w[slurm slurm-munge]
 
 packages.each do |package|
   package "#{package}" do
     action :install
   end
-end
-
-remote_file "#{slurm_download_dir}/slurm-#{slurm_version}.tar.bz2" do
-  source "#{slurm_download_url}"
-  mode "0644"
-  checksum "#{slurm_checksum}"
-end
-
-execute "untar slurm tarball" do
-  command "tar -xjf slurm-#{slurm_version}.tar.bz2"
-  cwd "#{slurm_download_dir}"
-  creates "#{slurm_version_dir}"
-end
-
-script "install slurm" do
-  interpreter "bash"
-  cwd "#{slurm_version_dir}"
-  code <<-EOH
-  ./configure --prefix=#{slurm_prefix}
-  make
-  make install
-  EOH
-  creates "#{slurm_prefix}/bin/squeue"
 end
 
 # TODO: Determine how we want to create the munge.key file.
@@ -74,30 +56,15 @@ cookbook_file "/etc/munge/munge.key" do
   group "munge"
 end
 
-directory "#{slurm_sysconfdir}" do
-  mode "0755"
-  action :create
-  recursive true
-end
-
 # TODO: Determine how we want to populate NodeName values.
 # Create the slurm.conf file.
-template "#{slurm_sysconfdir}/slurm.conf" do
+template "#{File.join(slurm_sysconfdir, "slurm.conf")}" do
   source "slurm.conf.erb"
   mode "0644"
   variables(
     :control_machine => slurm_control_machine,
     :control_addr => slurm_control_addr,
     :node_list => slurm_node_list )
-end
-
-# Create the /etc/init.d/slurm file.
-template "/etc/init.d/slurm" do
-  source "init.d.slurm.erb"
-  mode "0755"
-  variables(
-    :prefix => slurm_prefix,
-    :sysconfdir => slurm_sysconfdir )
 end
 
 # Create the slurm group and user.
@@ -118,10 +85,9 @@ directory "/var/log/slurm" do
   action :create
 end
 
-service "munge" do
-  action [ :enable, :start ]
-end
-
-service "slurm" do
-  action [ :enable, :start ]
+services = %w[munge slurm]
+services.each do |service|
+  service "#{service}" do
+    action [ :enable, :start ]
+  end
 end
