@@ -1,6 +1,6 @@
 Description
 ===========
-Installs Slurm on CentOS 6.4
+Installs Slurm on CentOS 6.5 and Ubuntu 14.04
 
 Requirements
 ============
@@ -22,4 +22,13 @@ If no attributes are specified then Slurm is installed to /usr/local.
 
 Usage
 =====
-recipe["slurm"]
+recipe["slurm"] - Installs Slurm from source (tested on CentOS 6.5)
+
+recipe["slurm::package"] - Installs Slurm from .rpm or .deb packages
+For CentOS 6.5
+* ["slurm"]["sysconfdir"] = "/etc/slurm"
+
+For Ubuntu 14.04
+* ["slurm"]["sysconfdir"] = "/etc/slurm-llnl"
+
+recipe["slurm::create_rpm"] - Creates .rpm files to be used by slurm::packages

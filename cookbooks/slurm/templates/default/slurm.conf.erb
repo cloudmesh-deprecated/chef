@@ -29,7 +29,7 @@ CryptoType=crypto/munge
 #KillOnBadExit=0 
 #LaunchType=launch/slurm 
 #Licenses=foo*4,bar 
-MailProg=/bin/mail 
+#MailProg=/bin/mail 
 #MaxJobCount=5000 
 #MaxStepCount=40000 
 #MaxTasksPerNode=128 
@@ -156,5 +156,5 @@ SlurmSchedLogLevel=1
 # 
 # 
 # COMPUTE NODES 
-NodeName=node[001-003] State=CLOUD
-PartitionName=batch Nodes=node[001-003] Default=YES MaxTime=INFINITE State=UP
+NodeName=<%= @node_list %> State=CLOUD
+PartitionName=batch Nodes=<%= @node_list %> Default=YES MaxTime=INFINITE State=UP

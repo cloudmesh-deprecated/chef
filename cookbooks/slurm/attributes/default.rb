@@ -5,6 +5,7 @@ default["slurm"]["checksum"] = ""
 #default["slurm"]["prefix"] = "/usr/local"
 default["slurm"]["prefix"] = ""
 default["slurm"]["sysconfdir"] = "#{node["slurm"]["prefix"]}/etc"
+default["slurm"]["node_list"] = "node[001-010]"
 
 # TODO: Determine user and group information.
 default["slurm"]["user"] = "slurm"
