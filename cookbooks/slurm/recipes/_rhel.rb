@@ -19,17 +19,32 @@
 
 slurm_sysconfdir = node["slurm"]["sysconfdir"]
 
-slurm_control_machine = node["slurm"]["control_machine"]
-slurm_control_addr = node["slurm"]["control_addr"]
+slurm_hash = node["slurm"]
 
-slurm_user = node["slurm"]["user"]
-slurm_uid = node["slurm"]["uid"]
-slurm_group = node["slurm"]["group"]
-slurm_gid = node["slurm"]["gid"]
+slurm_user = slurm_hash["user"]
+slurm_uid = slurm_hash["uid"]
+slurm_group = slurm_hash["group"]
+slurm_gid = slurm_hash["gid"]
 
-slurm_node_list = node["slurm"]["node_list"]
+slurm_node_list = slurm_hash["node_list"]
 
-slurm_baseurl = node["slurm"]["baseurl"]
+slurm_role = slurm_hash.fetch("role", "")
+slurm_control_machine = slurm_hash.fetch("control_machine", "")
+slurm_control_addr = slurm_hash.fetch("control_addr", "")
+
+# If the control_machine attribute was not specificed then use
+# Chef's searching capability.
+if slurm_control_machine.to_s.empty?
+  # A cluster name must be specified.
+  # A machine containing the condor role "headnode" must be specified within the same cluster.
+  slurm_cluster_name = slurm_hash.fetch("cluster_name", "")
+  slurm_control_machine_data = search("node", "slurm_role:headnode AND slurm_cluster_name:#{slurm_cluster_name}").first
+ 
+  slurm_control_machine = slurm_control_machine_data["hostname"]
+  slurm_control_addr = slurm_control_machine_data["ipaddress"]
+end
+
+slurm_baseurl = slurm_hash["baseurl"]
 
 # Create yum repo file.
 template "/etc/yum.repos.d/slurm.repo" do

@@ -6,6 +6,8 @@ default["slurm"]["checksum"] = ""
 default["slurm"]["prefix"] = ""
 default["slurm"]["sysconfdir"] = "#{node["slurm"]["prefix"]}/etc"
 default["slurm"]["node_list"] = "node[001-010]"
+default["slurm"]["role"] = "execute"
+default["slurm"]["cluster_name"] = "slurm_cluster"
 
 # TODO: Determine user and group information.
 default["slurm"]["user"] = "slurm"
