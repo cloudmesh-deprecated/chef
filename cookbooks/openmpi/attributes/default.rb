@@ -1,5 +1,5 @@
-default["openmpi"]["version"] = "1.6.5"
+default["openmpi"]["version"] = "1.8.1"
 default["openmpi"]["download_url"] = "http://www.open-mpi.org/software/ompi/v1.6/downloads/openmpi-#{node["openmpi"]["version"]}.tar.bz2"
 default["openmpi"]["download_dir"] = "/tmp"
-default["openmpi"]["checksum"] = "fe37bab89b5ef234e0ac82dc798282c2ab08900bf564a1ec27239d3f1ad1fc85"
+default["openmpi"]["checksum"] = "1ebeb5af9db47f1f0bb63d14265d34a7be0d99bb34a0b2a41c3e926f3d27fd50"
 default["openmpi"]["prefix"] = "/usr/local"
