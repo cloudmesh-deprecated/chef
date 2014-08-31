@@ -33,7 +33,7 @@ slurm_uid = node["slurm"]["uid"]
 slurm_group = node["slurm"]["group"]
 slurm_gid = node["slurm"]["gid"]
 
-packages = %w[gcc gcc-c++ mailx make munge munge-devel munge-libs openssl-devel pam-devel perl perl-ExtUtils-MakeMaker readline-devel rpm-build]
+packages = %w[gcc gcc-c++ mailx make munge munge-devel munge-libs openssl openssl-devel pam-devel perl perl-ExtUtils-MakeMaker readline-devel rpm-build]
 
 packages.each do |package|
   package "#{package}" do
