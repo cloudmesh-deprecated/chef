@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# serf        Startup script for Serf
+#
+# chkconfig: - 85 15
+# description: Serf is an application for \
+#	       service orchestration and service \
+#	       discovery.
+# processname: serf
+# pidfile: /var/run/serf/serf.pid
+#
+### BEGIN INIT INFO
+# Provides: serf
+# Required-Start: $local_fs $remote_fs $network
+# Required-Stop: $local_fs $remote_fs $network
+# Short-Description: start and stop Serf
+# Description: Serf is an extensible server 
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+serf=${SERF-<%= File.join( @bin_dir, "serf") %>}
+prog=serf
+pidfile=${PIDFILE-<%= File.join( @pid_dir, "serf.pid") %>}
+lockfile=${LOCKFILE-/var/lock/subsys/serf}
+outfile=${OUTFILE-<%= File.join( @log_dir, "out.log") %>}
+errfile=${ERRFILE-<%= File.join( @log_dir, "err.log") %>}
+RETVAL=0
+
+start() {
+        echo -n $"Starting $prog: "
+        daemonize -p ${pidfile} -l ${lockfile} -o ${outfile} -e ${errfile} -a $serf agent -config-dir=<%= @config_dir %>
+        RETVAL=$?
+        echo
+        [ $RETVAL = 0 ] && touch ${lockfile}
+        return $RETVAL
+}
+
+stop() {
+	echo -n $"Stopping $prog: "
+        $serf leave
+	RETVAL=$?
+	echo
+	rm -f ${lockfile} ${pidfile}
+}
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+        status -p ${pidfile} $serf
+	RETVAL=$?
+	;;
+  restart)
+	stop
+	start
+	;;
+  *)
+	echo $"Usage: $prog {start|stop|status|restart|help}"
+	RETVAL=2
+esac
+
+exit $RETVAL
