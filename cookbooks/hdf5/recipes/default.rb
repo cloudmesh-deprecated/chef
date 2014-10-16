@@ -23,7 +23,7 @@ hdf5_download_dir = node["hdf5"]["download_dir"]
 hdf5_checksum = node["hdf5"]["checksum"]
 hdf5_prefix = node["hdf5"]["prefix"]
 
-packages = %w[gcc gcc-c++ make]
+packages = %w[gcc gcc-c++ make bzip2]
 
 packages.each do |package|
   package "#{package}" do
