@@ -1,0 +1,51 @@
+[2014-10-29T12:50:30-04:00] INFO: *** Chef 11.4.0 ***
+[2014-10-29T12:50:30-04:00] INFO: Setting the run_list to ["recipe[condor]"] from JSON
+[2014-10-29T12:50:30-04:00] INFO: Run List is [recipe[condor]]
+[2014-10-29T12:50:30-04:00] INFO: Run List expands to [condor]
+[2014-10-29T12:50:30-04:00] INFO: Starting Chef Run for launcher-hrlee-git-svp3kj-server-gkx7jommih2j.novalocal
+[2014-10-29T12:50:30-04:00] INFO: Running start handlers
+[2014-10-29T12:50:30-04:00] INFO: Start handlers complete.
+[0m
+================================================================================[0m
+[31mRecipe Compile Error in /var/chef/cloudmesh-chef/cookbooks/condor/recipes/default.rb[0m
+================================================================================[0m
+
+[0m
+NoMethodError[0m
+-------------[0m
+undefined method `has_key?' for nil:NilClass[0m
+
+[0m
+Cookbook Trace:[0m
+---------------[0m
+  /var/chef/cloudmesh-chef/cookbooks/condor/recipes/default.rb:42:in `from_file'[0m
+
+[0m
+Relevant File Content:[0m
+----------------------[0m
+/var/chef/cloudmesh-chef/cookbooks/condor/recipes/default.rb:
+
+ 35:  end
+ 36:  
+ 37:  # Retrieve the condor hash; otherwise, create an empty one.
+ 38:  condor_hash = node[:condor]
+ 39:  
+ 40:  # Retrieve the mode (local|cluster).
+ 41:  # If it not specified then assume it is "cluster".
+ 42>> pool_mode = condor_hash.has_key?(:mode) ? condor_hash[:mode] : "cluster"
+ 43:  
+ 44:  if "local".eql?(pool_mode)
+ 45:    central_manager = node[:hostname]
+ 46:    # Because of local mode, this machine will exibit all roles.
+ 47:    condor_roles = ["centralmanager", "execute", "submit"]
+ 48:  
+ 49:  else
+ 50:    # See if the central manager was specified.
+ 51:    central_manager = condor_hash.has_key?(:central_manager) ? condor_hash[:central_manager] : ""
+[0m
+
+[0m
+[2014-10-29T12:50:31-04:00] ERROR: Running exception handlers
+[2014-10-29T12:50:31-04:00] ERROR: Exception handlers complete
+[2014-10-29T12:50:31-04:00] FATAL: Stacktrace dumped to /var/chef/chef-stacktrace.out
+[2014-10-29T12:50:31-04:00] FATAL: NoMethodError: undefined method `has_key?' for nil:NilClass

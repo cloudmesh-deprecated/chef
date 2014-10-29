@@ -1,0 +1,50 @@
+[2014-10-29T12:50:50-04:00] INFO: *** Chef 11.4.0 ***
+[2014-10-29T12:50:50-04:00] INFO: Setting the run_list to ["recipe[groups]"] from JSON
+[2014-10-29T12:50:50-04:00] INFO: Run List is [recipe[groups]]
+[2014-10-29T12:50:50-04:00] INFO: Run List expands to [groups]
+[2014-10-29T12:50:50-04:00] INFO: Starting Chef Run for launcher-hrlee-git-svp3kj-server-gkx7jommih2j.novalocal
+[2014-10-29T12:50:50-04:00] INFO: Running start handlers
+[2014-10-29T12:50:50-04:00] INFO: Start handlers complete.
+[0m
+================================================================================[0m
+[31mRecipe Compile Error in /var/chef/cloudmesh-chef/cookbooks/groups/recipes/default.rb[0m
+================================================================================[0m
+
+[0m
+NoMethodError[0m
+-------------[0m
+undefined method `each' for nil:NilClass[0m
+
+[0m
+Cookbook Trace:[0m
+---------------[0m
+  /var/chef/cloudmesh-chef/cookbooks/groups/recipes/default.rb:24:in `from_file'[0m
+
+[0m
+Relevant File Content:[0m
+----------------------[0m
+/var/chef/cloudmesh-chef/cookbooks/groups/recipes/default.rb:
+
+ 17:  # limitations under the License.
+ 18:  #
+ 19:  
+ 20:  # groups is a list of group hashes, each containing a name and id.
+ 21:  groups = node[:groups]
+ 22:  
+ 23:  # Iterate through the groups, configuring each.
+ 24>> groups.each do |group_hash|
+ 25:    group_name = group_hash[:name]
+ 26:    group_id = group_hash[:id].to_i
+ 27:  
+ 28:    # Add a group
+ 29:    group "#{group_name}" do
+ 30:      gid #{group_id}
+ 31:    end
+ 32:  end
+ 33:  [0m
+
+[0m
+[2014-10-29T12:50:51-04:00] ERROR: Running exception handlers
+[2014-10-29T12:50:51-04:00] ERROR: Exception handlers complete
+[2014-10-29T12:50:51-04:00] FATAL: Stacktrace dumped to /var/chef/chef-stacktrace.out
+[2014-10-29T12:50:51-04:00] FATAL: NoMethodError: undefined method `each' for nil:NilClass
