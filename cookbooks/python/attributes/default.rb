@@ -6,9 +6,9 @@ default["python"]["checksum"] = "74d70b914da4487aa1d97222b29e9554d042f825f26cb2b
 default["python"]["prefix"] = "/usr/local"
 default["python"]["install_method"] = "source"
 
-default["python"]["cython_version"] = "0.20.2"
+default["python"]["cython_version"] = "0.21.1"
 default["python"]["cython_download_url"] = "https://pypi.python.org/packages/source/C/Cython/Cython-#{node["python"]["cython_version"]}.tar.gz"
-default["python"]["cython_checksum"] = "31a563744a21d7b10355f25a3bca96b37ec5d32bdecfc75e93d65a5f7e62766c"
+default["python"]["cython_checksum"] = "43f64d225186ec7601249ebd1e8f8a7c33767974b493de6783c5b3dd0415bf35"
 
 default["python"]["distribute_setup_download_url"] = "http://python-distribute.org/distribute_setup.py"
 default["python"]["distribute_setup_checksum"] = "974f342d4376551fbf08baec7556ead4f4bd1bca6b1a9c5bad5a0d8b88cee0fe"
@@ -20,18 +20,18 @@ default["python"]["imaging_version"] = "1.1.7"
 default["python"]["imaging_download_url"] = "http://effbot.org/media/downloads/Imaging-#{node["python"]["imaging_version"]}.tar.gz"
 default["python"]["imaging_checksum"] = "895bc7c2498c8e1f9b99938f1a40dc86b3f149741f105cf7c7bd2e0725405211"
 
-default["python"]["matplotlib_version"] = "1.3.1"
+default["python"]["matplotlib_version"] = "1.4.2"
 default["python"]["matplotlib_download_url"] = "http://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-#{node["python"]["matplotlib_version"]}/matplotlib-#{node["python"]["matplotlib_version"]}.tar.gz"
-default["python"]["matplotlib_checksum"] = "ea16679d9476ab2757102e80327f31eb8e6c2cb09e2be89715c02e4e8fbdaf6a"
+default["python"]["matplotlib_checksum"] = "17a3c7154f152d8dfed1f37517c0a8c5db6ade4f6334f684989c36dab84ddb54"
 
 default["python"]["mpi4py_version"] = "1.3.1"
 default["python"]["mpi4py_download_url"] = "https://mpi4py.googlecode.com/files/mpi4py-#{node["python"]["mpi4py_version"]}.tar.gz"
 default["python"]["mpi4py_checksum"] = "e7bd2044aaac5a6ea87a87b2ecc73b310bb6efe5026031e33067ea3c2efc3507"
 default["python"]["mpi4py_mpi_prefix"] = "/usr/local"
 
-default["python"]["numpy_version"] = "1.8.2"
+default["python"]["numpy_version"] = "1.9.1"
 default["python"]["numpy_download_url"] = "https://pypi.python.org/packages/source/n/numpy/numpy-#{node["python"]["numpy_version"]}.tar.gz"
-default["python"]["numpy_checksum"] = "6d487fc724780d66746bde264ea71f5cd77d3a39e52ee2b073dcaed63bc669db"
+default["python"]["numpy_checksum"] = "0075bbe07e30b659ae4415446f45812dc1b96121a493a4a1f8b1ba77b75b1e1c"
 
 default["python"]["pandas_version"] = "0.13.1"
 default["python"]["pandas_download_url"] = "https://pypi.python.org/packages/source/p/pandas/pandas-#{node["python"]["pandas_version"]}.tar.gz"
