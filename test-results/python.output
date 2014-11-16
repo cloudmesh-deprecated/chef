@@ -1,0 +1,50 @@
+[2014-10-29T12:57:32-04:00] INFO: *** Chef 11.4.0 ***
+[2014-10-29T12:57:32-04:00] INFO: Setting the run_list to ["recipe[python]"] from JSON
+[2014-10-29T12:57:32-04:00] INFO: Run List is [recipe[python]]
+[2014-10-29T12:57:32-04:00] INFO: Run List expands to [python]
+[2014-10-29T12:57:32-04:00] INFO: Starting Chef Run for launcher-hrlee-git-svp3kj-server-gkx7jommih2j.novalocal
+[2014-10-29T12:57:32-04:00] INFO: Running start handlers
+[2014-10-29T12:57:32-04:00] INFO: Start handlers complete.
+[2014-10-29T12:57:32-04:00] INFO: Processing package[gcc] action install (python::default line 29)
+[0m
+================================================================================[0m
+[31mError executing action `install` on resource 'package[gcc]'[0m
+================================================================================[0m
+
+[0m
+Chef::Exceptions::Package[0m
+-------------------------[0m
+Yum failed - #<Process::Status: pid 32083 exit 1> - returns: ["yum-dump Repository Error: Cannot retrieve repository metadata (repomd.xml) for repository: Pegasus31. Please verify its path and try again\n"][0m
+
+[0m
+Resource Declaration:[0m
+---------------------[0m
+# In /var/chef/cloudmesh-chef/cookbooks/python/recipes/default.rb
+
+ 29:   package "#{package}" do
+ 30:     action :install
+ 31:   end
+ 32: end
+[0m
+
+[0m
+Compiled Resource:[0m
+------------------[0m
+# Declared in /var/chef/cloudmesh-chef/cookbooks/python/recipes/default.rb:29:in `block in from_file'
+
+package("gcc") do
+  action [:install]
+  retries 0
+  retry_delay 2
+  package_name "gcc"
+  cookbook_name :python
+  recipe_name "default"
+end
+[0m
+
+[0m
+[2014-10-29T12:57:33-04:00] INFO: Running queued delayed notifications before re-raising exception
+[2014-10-29T12:57:33-04:00] ERROR: Running exception handlers
+[2014-10-29T12:57:33-04:00] ERROR: Exception handlers complete
+[2014-10-29T12:57:33-04:00] FATAL: Stacktrace dumped to /var/chef/chef-stacktrace.out
+[2014-10-29T12:57:33-04:00] FATAL: Chef::Exceptions::Package: package[gcc] (python::default line 29) had an error: Chef::Exceptions::Package: Yum failed - #<Process::Status: pid 32083 exit 1> - returns: ["yum-dump Repository Error: Cannot retrieve repository metadata (repomd.xml) for repository: Pegasus31. Please verify its path and try again\n"]

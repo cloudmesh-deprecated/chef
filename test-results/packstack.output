@@ -1,0 +1,87 @@
+[2014-10-29T12:56:34-04:00] INFO: *** Chef 11.4.0 ***
+[2014-10-29T12:56:34-04:00] INFO: Setting the run_list to ["recipe[packstack]"] from JSON
+[2014-10-29T12:56:34-04:00] INFO: Run List is [recipe[packstack]]
+[2014-10-29T12:56:34-04:00] INFO: Run List expands to [packstack]
+[2014-10-29T12:56:34-04:00] INFO: Starting Chef Run for launcher-hrlee-git-svp3kj-server-gkx7jommih2j.novalocal
+[2014-10-29T12:56:34-04:00] INFO: Running start handlers
+[2014-10-29T12:56:34-04:00] INFO: Start handlers complete.
+[2014-10-29T12:56:34-04:00] INFO: Processing remote_file[/tmp/rdo-release-havana.rpm] action create (packstack::default line 25)
+[2014-10-29T12:56:35-04:00] INFO: remote_file[/tmp/rdo-release-havana.rpm] updated
+[2014-10-29T12:56:35-04:00] INFO: remote_file[/tmp/rdo-release-havana.rpm] mode changed to 644
+[2014-10-29T12:56:35-04:00] INFO: Processing package[rdo-release-havana] action install (packstack::default line 31)
+[2014-10-29T12:56:48-04:00] INFO: Processing package[ntp] action install (packstack::default line 38)
+[2014-10-29T12:56:48-04:00] INFO: package[ntp] installing ntp-4.2.6p5-1.el6.centos from base repository
+[2014-10-29T12:56:58-04:00] INFO: Processing package[openstack-packstack] action install (packstack::default line 38)
+[2014-10-29T12:57:07-04:00] WARN: package[openstack-packstack] matched multiple Provides for openstack-packstack but we can only use the first match: openstack-packstack. Please use a more specific version.
+[2014-10-29T12:57:07-04:00] INFO: package[openstack-packstack] installing openstack-packstack-2013.2.1-0.37.dev1048.el6 from openstack-havana repository
+[2014-10-29T12:57:19-04:00] INFO: Processing package[python-pbr] action install (packstack::default line 38)
+[2014-10-29T12:57:19-04:00] INFO: package[python-pbr] installing python-pbr-0.8.0-1.el6 from epel repository
+[2014-10-29T12:57:27-04:00] INFO: Processing template[/root/packstack-answers.txt] action create (packstack::default line 43)
+[2014-10-29T12:57:28-04:00] INFO: template[/root/packstack-answers.txt] updated content
+[2014-10-29T12:57:28-04:00] INFO: template[/root/packstack-answers.txt] mode changed to 644
+[2014-10-29T12:57:28-04:00] INFO: Processing execute[generate ssh key] action run (packstack::default line 52)
+[2014-10-29T12:57:28-04:00] INFO: execute[generate ssh key] ran successfully
+[2014-10-29T12:57:28-04:00] INFO: Processing execute[add to authorized keys] action run (packstack::default line 57)
+[2014-10-29T12:57:28-04:00] INFO: execute[add to authorized keys] ran successfully
+[2014-10-29T12:57:28-04:00] INFO: Processing execute[install packstack] action run (packstack::default line 62)
+[0m
+================================================================================[0m
+[31mError executing action `run` on resource 'execute[install packstack]'[0m
+================================================================================[0m
+
+[0m
+Mixlib::ShellOut::ShellCommandFailed[0m
+------------------------------------[0m
+Expected process to exit with [0], but received '1'
+---- Begin output of packstack --answer-file=/root/packstack-answers.txt ----
+STDOUT: Welcome to Installer setup utility
+Packstack changed given value  to required value /root/.ssh/id_rsa.pub
+
+[0;31mERROR : Failed handling answer file: 'Parser cannot find option CONFIG_DEBUG_MODE in answer file.'[0m
+Please check log file /var/tmp/packstack/20141029-125728-osIQW2/openstack-setup.log for more information
+STDERR: 
+---- End output of packstack --answer-file=/root/packstack-answers.txt ----
+Ran packstack --answer-file=/root/packstack-answers.txt returned 1[0m
+
+[0m
+Resource Declaration:[0m
+---------------------[0m
+# In /var/chef/cloudmesh-chef/cookbooks/packstack/recipes/default.rb
+
+ 62: execute "install packstack" do
+ 63:   command "packstack --answer-file=#{answers_path}"
+ 64: end
+[0m
+
+[0m
+Compiled Resource:[0m
+------------------[0m
+# Declared in /var/chef/cloudmesh-chef/cookbooks/packstack/recipes/default.rb:62:in `from_file'
+
+execute("install packstack") do
+  action "run"
+  retries 0
+  retry_delay 2
+  command "packstack --answer-file=/root/packstack-answers.txt"
+  backup 5
+  returns 0
+  cookbook_name :packstack
+  recipe_name "default"
+end
+[0m
+
+[0m
+[2014-10-29T12:57:28-04:00] INFO: Running queued delayed notifications before re-raising exception
+[2014-10-29T12:57:28-04:00] ERROR: Running exception handlers
+[2014-10-29T12:57:28-04:00] ERROR: Exception handlers complete
+[2014-10-29T12:57:28-04:00] FATAL: Stacktrace dumped to /var/chef/chef-stacktrace.out
+[2014-10-29T12:57:28-04:00] FATAL: Mixlib::ShellOut::ShellCommandFailed: execute[install packstack] (packstack::default line 62) had an error: Mixlib::ShellOut::ShellCommandFailed: Expected process to exit with [0], but received '1'
+---- Begin output of packstack --answer-file=/root/packstack-answers.txt ----
+STDOUT: Welcome to Installer setup utility
+Packstack changed given value  to required value /root/.ssh/id_rsa.pub
+
+[0;31mERROR : Failed handling answer file: 'Parser cannot find option CONFIG_DEBUG_MODE in answer file.'[0m
+Please check log file /var/tmp/packstack/20141029-125728-osIQW2/openstack-setup.log for more information
+STDERR: 
+---- End output of packstack --answer-file=/root/packstack-answers.txt ----
+Ran packstack --answer-file=/root/packstack-answers.txt returned 1

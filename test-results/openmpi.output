@@ -1,0 +1,62 @@
+[2014-10-29T12:56:22-04:00] INFO: *** Chef 11.4.0 ***
+[2014-10-29T12:56:22-04:00] INFO: Setting the run_list to ["recipe[openmpi]"] from JSON
+[2014-10-29T12:56:22-04:00] INFO: Run List is [recipe[openmpi]]
+[2014-10-29T12:56:22-04:00] INFO: Run List expands to [openmpi]
+[2014-10-29T12:56:22-04:00] INFO: Starting Chef Run for launcher-hrlee-git-svp3kj-server-gkx7jommih2j.novalocal
+[2014-10-29T12:56:22-04:00] INFO: Running start handlers
+[2014-10-29T12:56:22-04:00] INFO: Start handlers complete.
+[2014-10-29T12:56:22-04:00] INFO: Processing package[gcc] action install (openmpi::default line 29)
+[2014-10-29T12:56:25-04:00] INFO: Processing package[gcc-c++] action install (openmpi::default line 29)
+[2014-10-29T12:56:25-04:00] INFO: Processing package[gcc-gfortran] action install (openmpi::default line 29)
+[2014-10-29T12:56:25-04:00] INFO: package[gcc-gfortran] installing gcc-gfortran-4.4.7-11.el6 from base repository
+[2014-10-29T12:56:31-04:00] INFO: Processing package[java-1.7.0-openjdk] action install (openmpi::default line 29)
+[2014-10-29T12:56:31-04:00] INFO: Processing package[make] action install (openmpi::default line 29)
+[2014-10-29T12:56:31-04:00] INFO: Processing remote_file[/tmp/openmpi-1.8.1.tar.bz2] action create (openmpi::default line 34)
+[0m
+================================================================================[0m
+[31mError executing action `create` on resource 'remote_file[/tmp/openmpi-1.8.1.tar.bz2]'[0m
+================================================================================[0m
+
+[0m
+Chef::Exceptions::RedirectLimitExceeded[0m
+---------------------------------------[0m
+Chef::Exceptions::RedirectLimitExceeded[0m
+
+[0m
+Resource Declaration:[0m
+---------------------[0m
+# In /var/chef/cloudmesh-chef/cookbooks/openmpi/recipes/default.rb
+
+ 34: remote_file "#{openmpi_download_dir}/openmpi-#{openmpi_version}.tar.bz2" do
+ 35:   source "#{openmpi_download_url}"
+ 36:   mode "0644"
+ 37:   checksum "#{openmpi_checksum}"
+ 38: end
+ 39: 
+[0m
+
+[0m
+Compiled Resource:[0m
+------------------[0m
+# Declared in /var/chef/cloudmesh-chef/cookbooks/openmpi/recipes/default.rb:34:in `from_file'
+
+remote_file("/tmp/openmpi-1.8.1.tar.bz2") do
+  provider Chef::Provider::RemoteFile
+  action "create"
+  retries 0
+  retry_delay 2
+  path "/tmp/openmpi-1.8.1.tar.bz2"
+  backup 5
+  cookbook_name :openmpi
+  recipe_name "default"
+  mode "0644"
+  checksum "1ebeb5af9db47f1f0bb63d14265d34a7be0d99bb34a0b2a41c3e926f3d27fd50"
+end
+[0m
+
+[0m
+[2014-10-29T12:56:32-04:00] INFO: Running queued delayed notifications before re-raising exception
+[2014-10-29T12:56:32-04:00] ERROR: Running exception handlers
+[2014-10-29T12:56:32-04:00] ERROR: Exception handlers complete
+[2014-10-29T12:56:32-04:00] FATAL: Stacktrace dumped to /var/chef/chef-stacktrace.out
+[2014-10-29T12:56:32-04:00] FATAL: Chef::Exceptions::RedirectLimitExceeded: remote_file[/tmp/openmpi-1.8.1.tar.bz2] (openmpi::default line 34) had an error: Chef::Exceptions::RedirectLimitExceeded: Chef::Exceptions::RedirectLimitExceeded

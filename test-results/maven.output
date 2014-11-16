@@ -1,0 +1,21 @@
+[2014-10-29T12:56:14-04:00] INFO: *** Chef 11.4.0 ***
+[2014-10-29T12:56:15-04:00] INFO: Setting the run_list to ["recipe[maven]"] from JSON
+[2014-10-29T12:56:15-04:00] INFO: Run List is [recipe[maven]]
+[2014-10-29T12:56:15-04:00] INFO: Run List expands to [maven]
+[2014-10-29T12:56:15-04:00] INFO: Starting Chef Run for launcher-hrlee-git-svp3kj-server-gkx7jommih2j.novalocal
+[2014-10-29T12:56:15-04:00] INFO: Running start handlers
+[2014-10-29T12:56:15-04:00] INFO: Start handlers complete.
+[2014-10-29T12:56:15-04:00] INFO: Processing remote_file[/tmp/apache-maven-3.1.1-bin.tar.gz] action create (maven::default line 26)
+[2014-10-29T12:56:17-04:00] INFO: remote_file[/tmp/apache-maven-3.1.1-bin.tar.gz] updated
+[2014-10-29T12:56:17-04:00] INFO: remote_file[/tmp/apache-maven-3.1.1-bin.tar.gz] mode changed to 644
+[2014-10-29T12:56:17-04:00] INFO: Processing execute[untar maven tarball] action run (maven::default line 32)
+[2014-10-29T12:56:17-04:00] INFO: execute[untar maven tarball] ran successfully
+[2014-10-29T12:56:17-04:00] INFO: Processing link[/usr/local/bin/mvn] action create (maven::default line 41)
+[2014-10-29T12:56:17-04:00] INFO: link[/usr/local/bin/mvn] created
+[2014-10-29T12:56:17-04:00] INFO: Processing link[/usr/local/bin/mvnDebug] action create (maven::default line 41)
+[2014-10-29T12:56:17-04:00] INFO: link[/usr/local/bin/mvnDebug] created
+[2014-10-29T12:56:17-04:00] INFO: Processing link[/usr/local/bin/mvnyjp] action create (maven::default line 41)
+[2014-10-29T12:56:17-04:00] INFO: link[/usr/local/bin/mvnyjp] created
+[2014-10-29T12:56:17-04:00] INFO: Chef Run complete in 2.156999845 seconds
+[2014-10-29T12:56:17-04:00] INFO: Running report handlers
+[2014-10-29T12:56:17-04:00] INFO: Report handlers complete
