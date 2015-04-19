@@ -74,7 +74,7 @@ Include `cassandra` in your node's `run_list` and specify the address and hostna
   "name":"my_node",
   "run_list": [
     "recipe[cassandra]"
-  ]
+  ],
   "cassandra":
   {
     "broadcast_rpc_address": "10.1.2.4",
