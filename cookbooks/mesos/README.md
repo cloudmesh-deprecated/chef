@@ -47,7 +47,7 @@ Example of running with private IP `10.1.2.3`
   "name":"my_node",
   "run_list": [
     "recipe[mesos::master]"
-  ]
+  ],
   "mesos": {
     "master_hostname": "10.1.2.3"
   }
