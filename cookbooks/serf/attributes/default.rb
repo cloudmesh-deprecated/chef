@@ -3,5 +3,3 @@ default["serf"]["download_url"] = "https://dl.bintray.com/mitchellh/serf/#{node[
 default["serf"]["checksum"] = "bdb2a60a37fbb46c1a498bbb1354e34c1951e3c5df8003b95f9d4019c4e37663"
 default["serf"]["prefix"] = "/usr/local"
 default["serf"]["config_dir"] = "/etc/serf/conf.d"
-default["serf"]["log_dir"] = "/var/log/serf"
-default["serf"]["pid_dir"] = "/var/run/serf"

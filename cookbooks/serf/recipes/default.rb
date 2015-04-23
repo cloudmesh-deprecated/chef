@@ -23,15 +23,9 @@ serf_download_dir = Chef::Config["file_cache_path"]
 serf_checksum = node["serf"]["checksum"]
 serf_prefix = node["serf"]["prefix"]
 serf_config_dir = node["serf"]["config_dir"]
-serf_log_dir = node["serf"]["log_dir"]
-serf_pid_dir = node["serf"]["pid_dir"]
 
-# Install the daemonize package to create the serf daemon
-packages = %w[daemonize unzip]
-packages.each do |package|
-  package "#{package}" do
-    action :install
-  end
+package "unzip" do
+  action :install
 end
 
 remote_file "#{File.join(serf_download_dir, "#{serf_version}_linux_amd64.zip")}" do
@@ -52,7 +46,7 @@ execute "copy serf executable" do
   creates "#{serf_prefix}/bin/serf"
 end
  
-directories = [serf_config_dir, serf_log_dir, serf_pid_dir]
+directories = [serf_config_dir]
 directories.each do |directory|
   directory "#{directory}" do
     mode "0755"
@@ -61,13 +55,12 @@ directories.each do |directory|
   end
 end
 
-# Create the /etc/init.d/serf file.
-template "/etc/init.d/serf" do
-  source "init.d.serf.erb"
+# Create the systemd service file.
+template "/etc/systemd/system/serf.service" do
+  source "serf.service.erb"
   mode "0755"
   variables(
     :bin_dir => File.join(serf_prefix, "bin"),
-    :config_dir => serf_config_dir,
-    :log_dir => serf_log_dir,
-    :pid_dir => serf_pid_dir )
+    :config_dir => serf_config_dir
+  )
 end
