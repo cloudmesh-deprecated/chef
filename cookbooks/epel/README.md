@@ -11,7 +11,7 @@ Red Hat Enterprise Linux (RHEL), CentOS or Scientific Linux (SL) platform.
 Attributes
 ==========
 * `node["epel"]["download_url"]` - The download URL for the EPEL RPM.
-* `node["epel"]["download_dir"]` - Directory where the RPM is downloaded. Defaults to `/tmp`
+* `node["epel"]["rpm_path"]` - The path where the EPEL will be stored.
 * `node["epel"]["checksum"]` - sha265sum of the downloaded RPM
 
 Usage

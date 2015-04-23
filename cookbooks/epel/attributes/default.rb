@@ -1,3 +1,3 @@
-default["epel"]["download_url"] = "http://ftp.linux.ncsu.edu/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
-default["epel"]["download_dir"] = "/tmp"
-default["epel"]["checksum"] = "e5ed9ecf22d0c4279e92075a64c757ad2b38049bcf5c16c4f2b75d5f6860dc0d"
+default["epel"]["download_url"] = "http://ftp.linux.ncsu.edu/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm"
+default["epel"]["rpm_path"] = File.join(Chef::Config[:file_cache_path], "epel-release-7-5.noarch.rpm")
+default["epel"]["checksum"] = "d3b2ea818b10afdfb505f1f57fe7a0e47484b2d308b2433a5f4040a5f2021138"
