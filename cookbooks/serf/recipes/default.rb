@@ -23,6 +23,7 @@ serf_download_dir = Chef::Config["file_cache_path"]
 serf_checksum = node["serf"]["checksum"]
 serf_prefix = node["serf"]["prefix"]
 serf_config_dir = node["serf"]["config_dir"]
+serf_handler_dir = node["serf"]["handler_dir"]
 
 package "unzip" do
   action :install
@@ -46,7 +47,7 @@ execute "copy serf executable" do
   creates "#{serf_prefix}/bin/serf"
 end
  
-directories = [serf_config_dir]
+directories = [serf_config_dir serf_handler_dir]
 directories.each do |directory|
   directory "#{directory}" do
     mode "0755"
