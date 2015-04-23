@@ -1,0 +1,12 @@
+[Unit]
+Description=Serf Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=<%= File.join( @bin_dir, "serf") %> agent -config-dir=<%= @config_dir %>
+ExecStop=<%= File.join( @bin_dir, "serf") %> leave
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
