@@ -47,7 +47,7 @@ execute "copy serf executable" do
   creates "#{serf_prefix}/bin/serf"
 end
  
-directories = [serf_config_dir serf_handler_dir]
+directories = [serf_config_dir, serf_handler_dir]
 directories.each do |directory|
   directory "#{directory}" do
     mode "0755"
