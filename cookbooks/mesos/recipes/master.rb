@@ -20,6 +20,7 @@
 mesos_master_hostname = node["mesos"]["master_hostname"]
 mesos_repo_rpm_download_url = node["mesos"]["repo_rpm_download_url"]
 mesos_repo_rpm_path = node["mesos"]["repo_rpm_path"]
+mesos_zookeeper_id = node["mesos"]["zookeeper_id"]
 
 remote_file "#{mesos_repo_rpm_path}" do
   source "#{mesos_repo_rpm_download_url}"
@@ -43,6 +44,15 @@ template "/etc/mesos-master/hostname" do
   mode "0644"
   variables(
     :mesos_master_hostname => mesos_master_hostname
+  )
+end
+
+# Populate the Zookeeper myid file with a unique id (e.g., 1..n)
+template "/var/lib/zookeeper/myid" do
+  source "zookeeper_myid.erb"
+  mode "0644"
+  variables(
+    :mesos_zookeeper_id => mesos_zookeeper_id
   )
 end
 
