@@ -58,7 +58,7 @@ template "/var/lib/zookeeper/myid" do
 end
 
 mesos_masters = search(:node, "mesos_roles:master AND mesos_cluster_name:#{mesos_cluster_name}")
-masters.each do |mesos_master|
+mesos_masters.each do |mesos_master|
   log "mesos master: #{mesos_master.name}" do
     level :debug
   end
