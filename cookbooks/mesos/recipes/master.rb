@@ -21,6 +21,7 @@ mesos_master_hostname = node["mesos"]["master_hostname"]
 mesos_repo_rpm_download_url = node["mesos"]["repo_rpm_download_url"]
 mesos_repo_rpm_path = node["mesos"]["repo_rpm_path"]
 mesos_zookeeper_id = node["mesos"]["zookeeper_id"]
+mesos_cluster_name = node["mesos"]["cluster_name"]
 
 remote_file "#{mesos_repo_rpm_path}" do
   source "#{mesos_repo_rpm_download_url}"
@@ -54,6 +55,13 @@ template "/var/lib/zookeeper/myid" do
   variables(
     :mesos_zookeeper_id => mesos_zookeeper_id
   )
+end
+
+mesos_masters = search(:node, "mesos_roles:master AND mesos_cluster_name:#{mesos_cluster_name}")
+masters.each do |mesos_master|
+  log "mesos master: #{mesos_master.name}" do
+    level :debug
+  end
 end
 
 service "mesos-slave" do
