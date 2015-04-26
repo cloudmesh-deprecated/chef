@@ -59,7 +59,9 @@ end
 
 mesos_masters = search(:node, "mesos_roles:master AND mesos_cluster_name:#{mesos_cluster_name}")
 mesos_masters.each do |mesos_master|
-  log "mesos master: #{mesos_master.name}" do
+  mesos_mash = mesos_master['mesos']
+  zoo_cfg_entry = "server.#{mesos_mash['zookeeper_id']}=#{mesos_mash['master_hostname']}:#{mesos_mash['zookeeper_ports']}"
+  log "#{zoo_cfg_entry}" do
     level :debug
   end
 end
