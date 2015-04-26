@@ -25,7 +25,7 @@ syncLimit=5
 # the directory where the snapshot is stored.
 dataDir=/var/lib/zookeeper
 # the port at which the clients will connect
-clientPort=2181
+clientPort=<%= @mesos_zookeeper_client_port %>
 <% @mesos_masters.each do |mesos_master| -%>
 <%= "server.#{mesos_master['mesos']['zookeeper_id']}=#{mesos_master['mesos']['master_hostname']}:#{mesos_master['mesos']['zookeeper_ports']}" %>
 <% end -%>

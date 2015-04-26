@@ -22,6 +22,7 @@ mesos_repo_rpm_download_url = node["mesos"]["repo_rpm_download_url"]
 mesos_repo_rpm_path = node["mesos"]["repo_rpm_path"]
 mesos_zookeeper_id = node["mesos"]["zookeeper_id"]
 mesos_cluster_name = node["mesos"]["cluster_name"]
+mesos_zookeeper_client_port = node["mesos"]["zookeeper_client_port"]
 
 remote_file "#{mesos_repo_rpm_path}" do
   source "#{mesos_repo_rpm_download_url}"
@@ -65,7 +66,8 @@ template "/etc/zookeeper/conf/zoo.cfg" do
   source "zoo.cfg.erb"
   mode "0644"
   variables(
-    :mesos_masters => mesos_masters_sorted
+    :mesos_masters => mesos_masters_sorted,
+    :mesos_zookeeper_client_port => mesos_zookeeper_client_port
   )
 end
 
@@ -73,7 +75,8 @@ template "/etc/mesos/zk" do
   source "etc_mesos_zk.erb"
   mode "0644"
   variables(
-    :mesos_masters => mesos_masters_sorted
+    :mesos_masters => mesos_masters_sorted,
+    :mesos_zookeeper_client_port => mesos_zookeeper_client_port
   )
 end
 
