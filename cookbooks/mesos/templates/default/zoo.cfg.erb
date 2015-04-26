@@ -1,0 +1,3 @@
+<% @mesos_masters.each do |mesos_master| -%>
+<%= "server.#{mesos_master['mesos']['zookeeper_id']}=#{mesos_master['mesos']['master_hostname']}:#{mesos_master['mesos']['zookeeper_ports']}" %>
+<% end -%>

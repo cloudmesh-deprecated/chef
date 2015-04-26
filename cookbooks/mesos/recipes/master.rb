@@ -68,6 +68,14 @@ mesos_masters_sorted.each do |mesos_master|
   end
 end
 
+template "/etc/zookeeper/conf/zoo.cfg" do
+  source "zoo.cfg.erb"
+  mode "0644"
+  variables(
+    :mesos_masters => mesos_masters_sorted
+  )
+end
+
 service "mesos-slave" do
   action [ :disable, :stop ]
 end
