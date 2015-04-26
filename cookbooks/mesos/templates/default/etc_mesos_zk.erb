@@ -1,2 +1,2 @@
-<% masters_joined = @mesos_masters.map{ |mesos_master|, "#{mesos_master['mesos']['master_hostname']}:2181"}.join(",") %>
+<% masters_joined = @mesos_masters.map{ |mesos_master| "#{mesos_master['mesos']['master_hostname']}:2181"}.join(",") %>
 <%= "zk://#{masters_joined}/mesos" %>
