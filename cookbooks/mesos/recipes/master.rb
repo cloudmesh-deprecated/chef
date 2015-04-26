@@ -57,8 +57,10 @@ template "/var/lib/zookeeper/myid" do
   )
 end
 
+# Search for all of the Mesos masters and sort by Zookeeper id (1..n) to populate the zoo.cfg file.
 mesos_masters = search(:node, "mesos_roles:master AND mesos_cluster_name:#{mesos_cluster_name}")
-mesos_masters.each do |mesos_master|
+mesos_masters_sorted = mesos_masters.sort_by { |x| x['mesos']['zookeeper_id'].to_i }
+mesos_masters_sorted.each do |mesos_master|
   mesos_mash = mesos_master['mesos']
   zoo_cfg_entry = "server.#{mesos_mash['zookeeper_id']}=#{mesos_mash['master_hostname']}:#{mesos_mash['zookeeper_ports']}"
   log "#{zoo_cfg_entry}" do
