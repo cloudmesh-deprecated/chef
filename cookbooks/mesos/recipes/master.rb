@@ -80,6 +80,14 @@ template "/etc/mesos/zk" do
   )
 end
 
+template "/etc/mesos-master/quorum" do
+  source "etc_mesos-master_quorum.erb"
+  mode "0644"
+  variables(
+    :mesos_quorum => "#{(mesos_masters.count / 2) + 1}"
+  )
+end
+
 service "mesos-slave" do
   action [ :disable, :stop ]
 end
