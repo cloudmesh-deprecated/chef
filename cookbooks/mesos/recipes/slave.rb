@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mesos
-# Recipe:: master
+# Recipe:: slave
 #
 # Copyright 2015, Jonathan Klinginsmith
 #
@@ -17,10 +17,8 @@
 # limitations under the License.
 #
 
-mesos_master_hostname = node["mesos"]["master_hostname"]
 mesos_repo_rpm_download_url = node["mesos"]["repo_rpm_download_url"]
 mesos_repo_rpm_path = node["mesos"]["repo_rpm_path"]
-mesos_zookeeper_id = node["mesos"]["zookeeper_id"]
 mesos_cluster_name = node["mesos"]["cluster_name"]
 mesos_zookeeper_client_port = node["mesos"]["zookeeper_client_port"]
 
@@ -34,42 +32,16 @@ package "#{File.basename(mesos_repo_rpm_path, ".rpm")}" do
   provider Chef::Provider::Package::Rpm
 end
 
-mesos_packages = %w[mesos marathon mesosphere-zookeeper]
+mesos_packages = %w[mesos]
 mesos_packages.each do |mesos_package|
   package "#{mesos_package}" do
     action :install
   end
 end
 
-template "/etc/mesos-master/hostname" do
-  source "etc_mesos-master_hostname.erb"
-  mode "0644"
-  variables(
-    :mesos_master_hostname => mesos_master_hostname
-  )
-end
-
-# Populate the Zookeeper myid file with a unique id (e.g., 1..n)
-template "/var/lib/zookeeper/myid" do
-  source "zookeeper_myid.erb"
-  mode "0644"
-  variables(
-    :mesos_zookeeper_id => mesos_zookeeper_id
-  )
-end
-
-# Search for all of the Mesos masters and sort by Zookeeper id (1..n) to populate the zoo.cfg file.
+# Search for all of the Mesos masters and sort by Zookeeper id (1..n) to populate the zk file.
 mesos_masters = search(:node, "mesos_roles:master AND mesos_cluster_name:#{mesos_cluster_name}")
 mesos_masters_sorted = mesos_masters.sort_by { |x| x['mesos']['zookeeper_id'].to_i }
-
-template "/etc/zookeeper/conf/zoo.cfg" do
-  source "zoo.cfg.erb"
-  mode "0644"
-  variables(
-    :mesos_masters => mesos_masters_sorted,
-    :mesos_zookeeper_client_port => mesos_zookeeper_client_port
-  )
-end
 
 template "/etc/mesos/zk" do
   source "etc_mesos_zk.erb"
@@ -80,21 +52,10 @@ template "/etc/mesos/zk" do
   )
 end
 
-template "/etc/mesos-master/quorum" do
-  source "etc_mesos-master_quorum.erb"
-  mode "0644"
-  variables(
-    :mesos_quorum => "#{(mesos_masters.count / 2) + 1}"
-  )
-end
-
-service "mesos-slave" do
+service "mesos-master" do
   action [ :disable, :stop ]
 end
 
-#service "mesos-master" do
-#  action [ :enable ]
-#end
-
-#sudo systemctl restart mesos-master.service
-#sudo systemctl restart marathon
+service "mesos-master" do
+  action [ :enable, :restart ]
+end
