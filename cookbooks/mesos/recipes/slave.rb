@@ -56,6 +56,6 @@ service "mesos-master" do
   action [ :disable, :stop ]
 end
 
-service "mesos-master" do
+service "mesos-slave" do
   action [ :enable, :restart ]
 end
