@@ -40,16 +40,44 @@ Usage
 -----
 `mesos::master`
 
-Example of running with private IP `10.1.2.3`
+Example of running with:
+* private IP: `10.1.2.3`
+* zookeeper id: `1`
+* cluster name: `dev`
+* roles: `master` and `zookeeper`
+
+The cluster name and master role are used with Chef search to find masters for this cluster.
+
+```json
+{ 
+  "run_list": [
+    "recipe[epel]",
+    "recipe[mesos::master]"
+  ],
+  "mesos": 
+  {
+    "master_hostname": "10.1.2.3",
+    "zookeeper_id": "1",
+    "roles": ["master", "zookeeper"],
+    "cluster_name": "dev"
+  }
+}
+```
+
+`mesos::slave`
+
+Example of a slave node for cluster `dev`. Chef search will look for masters on the same cluster.
 
 ```json
 {
-  "name":"my_node",
   "run_list": [
-    "recipe[mesos::master]"
+    "recipe[epel]",
+    "recipe[mesos::slave]"
   ],
-  "mesos": {
-    "master_hostname": "10.1.2.3"
+  "mesos":
+  {
+    "roles": ["slave"],
+    "cluster_name": "dev"
   }
 }
 ```
