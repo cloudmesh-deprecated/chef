@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe 'python::pip'
+
 python_prefix = node["python"]["prefix"]
 
 packages = %w[libev libev-devel]
@@ -26,7 +28,9 @@ packages.each do |package|
   end
 end
 
-execute "install cassandra-driver" do
-  command "#{python_prefix}/bin/pip install cassandra-driver"
-  not_if "#{python_prefix}/bin/python -c 'import cassandra' &> /dev/null"
+pip_packages = %w[blist lz4 cassandra-driver]
+pip_packages.each do |pip_package|
+  execute "install #{pip_package}" do
+    command "#{python_prefix}/bin/pip install #{pip_package}"
+  end
 end
