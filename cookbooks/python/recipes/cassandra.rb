@@ -28,5 +28,5 @@ end
 
 execute "install cassandra-driver" do
   command "#{python_prefix}/bin/pip install cassandra-driver"
-  not_if "#{python_prefix"/bin/python -c 'import cassandra' &> /dev/null"
+  not_if "#{python_prefix}/bin/python -c 'import cassandra' &> /dev/null"
 end
