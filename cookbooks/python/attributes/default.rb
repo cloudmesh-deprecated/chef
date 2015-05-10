@@ -1,14 +1,14 @@
-default["python"]["version"] = "2.7.8"
+default["python"]["version"] = "2.7.9"
 default["python"]["short_version"] = "#{node["python"]["version"][0,3]}"
 default["python"]["download_url"] = "https://www.python.org/ftp/python/#{node["python"]["version"]}/Python-#{node["python"]["version"]}.tgz"
 default["python"]["download_dir"] = "/tmp"
-default["python"]["checksum"] = "74d70b914da4487aa1d97222b29e9554d042f825f26cb2b93abd20fdda56b557"
+default["python"]["checksum"] = "c8bba33e66ac3201dabdc556f0ea7cfe6ac11946ec32d357c4c6f9b018c12c5b"
 default["python"]["prefix"] = "/usr/local"
 default["python"]["install_method"] = "source"
 
-default["python"]["cython_version"] = "0.21.1"
+default["python"]["cython_version"] = "0.22"
 default["python"]["cython_download_url"] = "https://pypi.python.org/packages/source/C/Cython/Cython-#{node["python"]["cython_version"]}.tar.gz"
-default["python"]["cython_checksum"] = "43f64d225186ec7601249ebd1e8f8a7c33767974b493de6783c5b3dd0415bf35"
+default["python"]["cython_checksum"] = "14307e7a69af9a0d0e0024d446af7e51cc0e3e4d0dfb10d36ba837e5e5844015"
 
 default["python"]["distribute_setup_download_url"] = "http://python-distribute.org/distribute_setup.py"
 default["python"]["distribute_setup_checksum"] = "974f342d4376551fbf08baec7556ead4f4bd1bca6b1a9c5bad5a0d8b88cee0fe"
