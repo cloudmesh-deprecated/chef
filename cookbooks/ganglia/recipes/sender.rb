@@ -23,6 +23,7 @@ port = node["ganglia"]["port"]
 receiver_name = node["ganglia"]["receiver_name"]
 
 package "ganglia-gmond" do
+  options "--enablerepo=epel-testing"
   action :install
 end
 

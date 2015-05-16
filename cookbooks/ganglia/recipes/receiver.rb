@@ -22,10 +22,17 @@ include_recipe 'ganglia'
 # Get the data sources to receive information from.
 data_sources = node["ganglia"]["data_sources"]
 
-packages = %w[rrdtool ganglia-gmetad ganglia-web httpd php]
-
+packages = %w[rrdtool httpd php]
 packages.each do |package|
   package "#{package}" do
+    action :install
+  end
+end
+
+ganglia_packages = %w[ganglia-gmetad ganglia-web]
+ganglia_packages.each do |package|
+  package "#{package}" do
+    options "--enablerepo=epel-testing"
     action :install
   end
 end
@@ -43,6 +50,13 @@ end
 template "/etc/httpd/conf.d/ganglia.conf" do
   source "ganglia.conf.erb"
   mode "0644"
+end
+
+directory "/var/lib/ganglia/rrds" do
+  owner "nobody"
+  group "root"
+  action :create
+  recursive true
 end
 
 service "gmetad" do

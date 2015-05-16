@@ -1,9 +1,10 @@
 Description
 ===========
-Installs Ganglia on CentOS 6.5
+Installs Ganglia on CentOS 7.x
 
 Requirements
 ============
+EPEL repository is needed. Ganglia is currently in epel-testing repo, which is disabled by default.
 
 Attributes
 ==========
