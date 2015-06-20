@@ -1,6 +1,6 @@
 Description
 ===========
-Installs R on CentOS 6.4
+Installs R on CentOS 7.x
 
 Requirements
 ============
