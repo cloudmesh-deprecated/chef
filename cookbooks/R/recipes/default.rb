@@ -2,7 +2,7 @@
 # Cookbook Name:: R
 # Recipe:: default
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ R_download_url = node["R"]["download_url"]
 R_download_dir = node["R"]["download_dir"]
 R_checksum = node["R"]["checksum"]
 R_prefix = node["R"]["prefix"]
+R_configure_options = node["R"]["configure_options"]
 
 packages = %w[atlas atlas-devel blas blas-devel gcc gcc-c++ bzip2-devel db4-devel expat-devel gdbm-devel java-1.7.0-openjdk java-1.7.0-openjdk-devel lapack lapack-devel make ncurses-devel openssl-devel readline-devel sqlite-devel tk-devel zlib-devel]
 
@@ -48,7 +49,7 @@ script "install R" do
   user "root"
   cwd "#{R_download_dir}/R-#{R_version}"
   code <<-EOF
-  ./configure --prefix=#{R_prefix} --with-x=no --enable-R-shlib
+  ./configure #{R_configure_options}
   make
   make install
   make install-libR
