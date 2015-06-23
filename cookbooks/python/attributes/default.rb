@@ -33,9 +33,9 @@ default["python"]["numpy_version"] = "1.9.1"
 default["python"]["numpy_download_url"] = "https://pypi.python.org/packages/source/n/numpy/numpy-#{node["python"]["numpy_version"]}.tar.gz"
 default["python"]["numpy_checksum"] = "0075bbe07e30b659ae4415446f45812dc1b96121a493a4a1f8b1ba77b75b1e1c"
 
-default["python"]["pandas_version"] = "0.13.1"
+default["python"]["pandas_version"] = "0.16.2"
 default["python"]["pandas_download_url"] = "https://pypi.python.org/packages/source/p/pandas/pandas-#{node["python"]["pandas_version"]}.tar.gz"
-default["python"]["pandas_checksum"] = "6813746caa796550969ed98069f16627f070f6d8d60686cfb3fa0e66c2e0312b"
+default["python"]["pandas_checksum"] = "e01853dfe111f3aea005315573400b7216ddbabbf1f28d482a71217d67ae4f81"
 
 default["python"]["pip_get-pip_url"] = "https://bootstrap.pypa.io/get-pip.py"
 default["python"]["pip_get-pip_checkum"] = "d43dc33a5670d69dd14a9be1f2b2fa27ebf124ec1b212a47425331040f742a9b"
