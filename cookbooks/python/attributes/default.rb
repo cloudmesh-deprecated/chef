@@ -47,7 +47,7 @@ default["python"]["scipy_checksum"] = "4b41a3e6bf178df1c7f0ef3bfeabf1f56610329ac
 default["python"]["setuptools_setup_download_url"] = "https://bootstrap.pypa.io/ez_setup.py"
 default["python"]["setuptools_setup_checksum"] = "97cbf7f590e79613b245d30de7949d57e801ca149aa138a558863be8e29eb18c"
 
-default["python"]["tables_version"] = "3.1.1"
+default["python"]["tables_version"] = "3.2.0"
 default["python"]["tables_download_url"] = "https://pypi.python.org/packages/source/t/tables/tables-#{node["python"]["tables_version"]}.tar.gz"
-default["python"]["tables_checksum"] = "39b9036376f1185599771c19276f13b5b9119d98f9108f58595745ded3fe2da3"
+default["python"]["tables_checksum"] = "60980e44676bfe463cdd2582ecdacc0b0763b259477015e866f8af72b4cdba44"
 default["python"]["tables_setup_options"] = ""
