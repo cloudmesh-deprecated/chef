@@ -2,7 +2,7 @@
 # Cookbook Name:: python
 # Recipe:: imaging
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 
 python_prefix = node["python"]["prefix"]
 
-packages = %w{freetype freetype-devel lcms-devel libjpeg-turbo libjpeg-turbo-devel libtiff libtiff-devel zlib zlib-devel}
+packages = %w{freetype freetype-devel lcms2-devel libjpeg-turbo libjpeg-turbo-devel libtiff libtiff-devel zlib zlib-devel}
 packages.each do |package|
   package "#{package}" do
     action :install
