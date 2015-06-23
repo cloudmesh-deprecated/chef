@@ -1,3 +1,4 @@
+name             "hdf5"
 maintainer       "Jonathan Klinginsmith"
 maintainer_email "jklingin@indiana.edu"
 license          "Apache 2.0"
