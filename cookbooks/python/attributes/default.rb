@@ -40,6 +40,11 @@ default["python"]["pandas_checksum"] = "e01853dfe111f3aea005315573400b7216ddbabb
 default["python"]["pip_get-pip_url"] = "https://bootstrap.pypa.io/get-pip.py"
 default["python"]["pip_get-pip_checkum"] = "d43dc33a5670d69dd14a9be1f2b2fa27ebf124ec1b212a47425331040f742a9b"
 
+default["python"]["psycopg2_version"] = "2.6.1"
+default["python"]["psycopg2_download_url"] = "https://pypi.python.org/packages/source/p/psycopg2/psycopg2-#{node["python"]["psycopg2_version"]}.tar.gz"
+default["python"]["psycopg2_checksum"] = "6acf9abbbe757ef75dc2ecd9d91ba749547941abaffbe69ff2086a9e37d4904c"
+default["python"]["pgsql_bin_dir"] = "/usr/pgsql-9.4/bin/"
+
 default["python"]["scipy_version"] = "0.14.0"
 default["python"]["scipy_download_url"] = "http://downloads.sourceforge.net/project/scipy/scipy/#{node["python"]["scipy_version"]}/scipy-#{node["python"]["scipy_version"]}.tar.gz"
 default["python"]["scipy_checksum"] = "4b41a3e6bf178df1c7f0ef3bfeabf1f56610329aca5dbd7b6d64da8ac9af6b14"
