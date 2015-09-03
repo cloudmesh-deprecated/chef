@@ -1,0 +1,9 @@
+systemLog:
+    destination: file
+    path: "/var/log/mongodb/mongos.log"
+    logAppend: true
+processManagement:
+    fork: true
+    pidFilePath: "/var/run/mongodb/mongos.pid"
+sharding:
+    configDB: "<%= @config_servers %>"
