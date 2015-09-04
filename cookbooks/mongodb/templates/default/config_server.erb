@@ -10,7 +10,7 @@ processManagement:
     pidFilePath: "/var/run/mongodb/mongod.pid"
 net:
     bindIp: 0.0.0.0
-    port: 27019
+    port: <%= @config_server_port %>
 setParameter:
     enableLocalhostAuthBypass: false
 storage:

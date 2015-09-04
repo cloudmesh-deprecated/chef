@@ -19,7 +19,8 @@
 
 include_recipe "mongodb::repo"
 
-mongodb_config_servers = node["mongodb"]["config_servers"].join(',')
+mongodb_config_server_port = node["mongodb"]["config_server_port"]
+mongodb_config_servers = node["mongodb"]["config_servers"].map{ |config_server| "#{config_server}:#{mongodb_config_server_port}"}.join(",")
 mongodb_log_dir = node["mongodb"]["log_dir"]
 mongodb_run_dir = node["mongodb"]["run_dir"]
 
