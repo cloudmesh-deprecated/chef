@@ -20,7 +20,7 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>["mongodb"]["config_dbs"]</tt></td>
+    <td><tt>["mongodb"]["config_servers"]</tt></td>
     <td>List</td>
     <td>List of Config Servers</td>
     <td><tt>[]</tt></td>
@@ -43,7 +43,7 @@ Usage
 -----
 `mongodb::config_server` - Sets up the Config Servers. Need three of these for production setup.
 
-`mongodb::router` - Sets up the Router. It will need a list of Config Servers via `["mongodb"]["config_dbs"]` attribute.
+`mongodb::router` - Sets up the Router. It will need a list of Config Servers via `["mongodb"]["config_servers"]` attribute.
 
 `mongodb::repo` - Used by other recipes to setup the Yum repo.
 
