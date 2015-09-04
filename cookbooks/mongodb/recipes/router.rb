@@ -20,6 +20,8 @@
 include_recipe "mongodb::repo"
 
 mongodb_config_servers = node["mongodb"]["config_servers"].join(',')
+mongodb_log_dir = node["mongodb"]["log_dir"]
+mongodb_run_dir = node["mongodb"]["run_dir"]
 
 package "mongodb-org-mongos" do
   action :install
@@ -38,12 +40,25 @@ user "mongos" do
   action :create
 end
 
+directories = [mongodb_log_dir, mongodb_run_dir]
+directories.each do |dir|
+  directory dir do
+    mode "0755"
+    user "mongos"
+    group "mongos"
+    action :create
+    recursive true
+  end
+end
+
 template "/etc/mongos.conf" do
   source "mongos.conf.erb"
   mode "0644"
   user "root"
   group "root"
   variables(
+    :log_dir => mongodb_log_dir,
+    :run_dir => mongodb_run_dir,
     :config_servers => mongodb_config_servers
   )
 end

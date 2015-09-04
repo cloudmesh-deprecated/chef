@@ -1,9 +1,9 @@
 systemLog:
     destination: file
-    path: "/var/log/mongodb/mongos.log"
+    path: "<%= File.join(@log_dir, "mongos.log") %>"
     logAppend: true
 processManagement:
     fork: true
-    pidFilePath: "/var/run/mongodb/mongos.pid"
+    pidFilePath: "<%= File.join(@run_dir, "mongos.pid") %>"
 sharding:
     configDB: "<%= @config_servers %>"
