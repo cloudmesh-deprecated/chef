@@ -24,8 +24,11 @@ mongodb_config_servers = node["mongodb"]["config_servers"].map{ |config_server| 
 mongodb_log_dir = node["mongodb"]["log_dir"]
 mongodb_run_dir = node["mongodb"]["run_dir"]
 
-package "mongodb-org-mongos" do
-  action :install
+packages = %w[mongodb-org-mongos mongodb-org-shell]
+packages.each do |package|
+  package "#{package}" do
+    action :install
+  end
 end
 
 group "mongos" do
