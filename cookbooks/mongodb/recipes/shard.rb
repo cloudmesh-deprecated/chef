@@ -44,8 +44,8 @@ end
 # Initiate the replica set only on the primary
 if mongodb_shard_role == "primary"
   execute "initiate replica set" do
-    command 'mongo --port #{mongodb_shard_port} --eval "rs.initiate()"'
-    not_if  'mongo --port #{mongodb_shard_port} --eval "shellPrint(rs.conf())" > /dev/null'
+    command "mongo --port #{mongodb_shard_port} --eval \"rs.initiate()\""
+    not_if  "mongo --port #{mongodb_shard_port} --eval \"shellPrint(rs.conf())\" > /dev/null"
   end
 end
 
