@@ -1,5 +1,5 @@
-default["zeromq"]["version"] = "4.0.5"
+default["zeromq"]["version"] = "4.1.3"
 default["zeromq"]["download_url"] = "http://download.zeromq.org/zeromq-#{node["zeromq"]["version"]}.tar.gz"
-default["zeromq"]["download_dir"] = "/tmp"
-default["zeromq"]["checksum"] = "3bc93c5f67370341428364ce007d448f4bb58a0eaabd0a60697d8086bc43342b"
+default["zeromq"]["download_dir"] = Chef::Config[:file_cache_path]
+default["zeromq"]["checksum"] = "61b31c830db377777e417235a24d3660a4bcc3f40d303ee58df082fcd68bf411"
 default["zeromq"]["prefix"] = "/usr/local"
