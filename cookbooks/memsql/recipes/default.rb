@@ -35,7 +35,7 @@ execute 'untar memsql tarball' do
 end
 
 execute 'install memsql' do
-  command 'sudo ./install.sh -n'
+  command './install.sh -n'
   cwd "#{memsql_download_dir}/memsql-ops-#{memsql_version}"
   creates "/usr/bin/memsql-ops"
 end
