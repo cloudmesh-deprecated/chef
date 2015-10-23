@@ -22,14 +22,14 @@ memsql_download_url = node['memsql']['download_url']
 memsql_download_dir = node['memsql']['download_dir']
 memsql_checksum = node['memsql']['checksum']
 
-remote_file "#{memsql_download_dir}/memsql-ops-#{memsql_version}.tgz" do
+remote_file "#{memsql_download_dir}/memsql-ops-#{memsql_version}.tar.gz" do
   source memsql_download_url
   mode '0644'
   checksum memsql_checksum
 end
 
 execute 'untar memsql tarball' do
-  command "tar -xzf memsql-ops-#{memsql_version}.tgz"
+  command "tar -xzf memsql-ops-#{memsql_version}.tar.gz"
   cwd memsql_download_dir
   creates "#{memsql_download_dir}/memsql-ops-#{memsql_version}"
 end
