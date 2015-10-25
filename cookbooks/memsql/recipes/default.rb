@@ -21,6 +21,8 @@ memsql_version = node['memsql']['version']
 memsql_download_url = node['memsql']['download_url']
 memsql_download_dir = node['memsql']['download_dir']
 memsql_checksum = node['memsql']['checksum']
+memsql_bin_download_url = node['memsql']['bin_download_url']
+memsql_bin_checksum = node['memsql']['bin_checksum']
 
 remote_file "#{memsql_download_dir}/memsql-ops-#{memsql_version}.tar.gz" do
   source memsql_download_url
@@ -38,4 +40,14 @@ execute 'install memsql' do
   command './install.sh -n'
   cwd "#{memsql_download_dir}/memsql-ops-#{memsql_version}"
   creates "/usr/bin/memsql-ops"
+end
+
+remote_file "#{memsql_download_dir}/memsqlbin_amd64.tar.gz" do
+  source memsql_bin_download_url
+  mode '0644'
+  checksum memsql_bin_checksum
+end
+
+execute 'add memsql to agent' do
+  command "memsql-ops file-add -t memsql #{memsql_download_dir}/memsqlbin_amd64.tar.gz"
 end
