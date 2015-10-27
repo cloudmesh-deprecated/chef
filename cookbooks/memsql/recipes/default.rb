@@ -50,4 +50,5 @@ end
 
 execute 'add memsql to agent' do
   command "memsql-ops file-add -t memsql #{memsql_download_dir}/memsqlbin_amd64.tar.gz"
+  not_if 'memsql-ops file-list -t memsql | grep -q MEMSQL'
 end
