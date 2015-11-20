@@ -17,28 +17,28 @@
 # limitations under the License.
 #
 
-spark_download_url = node["spark"]["download_url"]
-spark_download_dir = node["spark"]["download_dir"]
+spark_download_url = node['spark']['download_url']
+spark_download_dir = node['spark']['download_dir']
 spark_tarball = File.basename(spark_download_url)
 spark_directory = File.join(spark_download_dir, 
                             File.basename(spark_tarball, File.extname(spark_tarball)))
-spark_checksum = node["spark"]["checksum"]
+spark_checksum = node['spark']['checksum']
 
 packages = %w[java-1.8.0-openjdk java-1.8.0-openjdk-devel]
-packages.each do |package|
-  package "#{package}" do
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
 remote_file "#{File.join(spark_download_dir, spark_tarball)}" do
-  source "#{spark_download_url}"
-  mode "0644"
-  checksum "#{spark_checksum}"
+  source spark_download_url
+  mode '0644'
+  checksum spark_checksum
 end
 
-execute "untar spark tarball" do
+execute 'untar spark tarball' do
   command "tar -xzf #{spark_tarball}"
-  cwd "#{spark_download_dir}"
-  creates "#{spark_directory}"
+  cwd spark_download_dir
+  creates spark_directory
 end
