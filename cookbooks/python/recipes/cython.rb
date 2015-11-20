@@ -2,7 +2,7 @@
 # Cookbook Name:: python
 # Recipe:: cython
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,33 +17,11 @@
 # limitations under the License.
 #
 
-cython_version = node["python"]["cython_version"]
-cython_download_url = node["python"]["cython_download_url"]
-cython_checksum = node["python"]["cython_checksum"]
+include_recipe 'python::pip'
 
-python_prefix = node["python"]["prefix"]
-python_lib_directory = `#{node["python"]["prefix"]}/bin/python -c "import distutils.sysconfig as d; print(d.get_python_lib())"`.chomp
-python_download_dir = node["python"]["download_dir"]
+python_prefix = node['python']['prefix']
 
-remote_file "/tmp/Cython-#{cython_version}.tar.gz" do
-  source "#{cython_download_url}"
-  mode "0644"
-  checksum "#{cython_checksum}"
-end
-
-execute "untar cython tarball" do
-  command "tar -xzf Cython-#{cython_version}.tar.gz"
-  cwd "#{python_download_dir}"
-  creates "#{python_download_dir}/Cython-#{cython_version}"
+execute 'install cython' do
+  command "#{python_prefix}/bin/pip install cython"
   action :run
-end
-
-script "install cython" do
-  interpreter "bash"
-  user "root"
-  cwd "#{python_download_dir}/Cython-#{cython_version}"
-  code <<-EOF
-  #{python_prefix}/bin/python setup.py install
-  EOF
-  not_if "test -d #{python_lib_directory}/Cython"
 end
