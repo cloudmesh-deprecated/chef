@@ -26,7 +26,7 @@ zeromq_prefix = node["zeromq"]["prefix"]
 # http://blog.serverdensity.com/building-zeromq-and-pyzmq-on-red-hat/
 # autoconf on RHEL6 -- autoconf2.6x needed.
 # Needed to perform the following for all tests to pass "ulimit -n 1200"
-packages = %w[autoconf gcc-c++ libtool pkgconfig]
+packages = %w[autoconf gcc-c++ libsodium libtool pkgconfig]
 packages.each do |package|
   package "#{package}" do
     action :install
