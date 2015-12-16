@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: python
-# Recipe:: numpy
+# Recipe:: scipy
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,29 +19,29 @@
 
 include_recipe 'python::numpy'
 
-scipy_version = node["python"]["scipy_version"]
-scipy_download_url = node["python"]["scipy_download_url"]
-scipy_checksum = node["python"]["scipy_checksum"]
+scipy_version = node['python']['scipy_version']
+scipy_download_url = node['python']['scipy_download_url']
+scipy_checksum = node['python']['scipy_checksum']
 
-python_prefix = node["python"]["prefix"]
-python_download_dir = node["python"]["download_dir"]
+python_prefix = node['python']['prefix']
+python_download_dir = node['python']['download_dir']
 
 remote_file "#{python_download_dir}/scipy-#{scipy_version}.tar.gz" do
-  source "#{scipy_download_url}"
-  mode "0644"
-  checksum "#{scipy_checksum}"
+  source scipy_download_url
+  mode '0644'
+  checksum scipy_checksum
 end
 
-execute "untar scipy tarball" do
+execute 'untar scipy tarball' do
   command "tar -xzf scipy-#{scipy_version}.tar.gz"
-  cwd "#{python_download_dir}"
+  cwd python_download_dir
   creates "#{python_download_dir}/scipy-#{scipy_version}"
   action :run
 end
 
-script "install scipy" do
-  interpreter "bash"
-  user "root"
+script 'install scipy' do
+  interpreter 'bash'
+  user 'root'
   cwd "#{python_download_dir}/scipy-#{scipy_version}"
   code <<-EOF
   #{python_prefix}/bin/python setup.py build --fcompiler=gnu95

@@ -2,7 +2,7 @@
 # Cookbook Name:: python
 # Recipe:: statsmodels
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-python_prefix = node["python"]["prefix"]
+python_prefix = node['python']['prefix']
 
-pip_packages = %w[patsy statsmodels]
+pip_packages = %w(patsy statsmodels)
 pip_packages.each do |pip_package|
   execute "install #{pip_package}" do
     command "#{python_prefix}/bin/pip install #{pip_package}"

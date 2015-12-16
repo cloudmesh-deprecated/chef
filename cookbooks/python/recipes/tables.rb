@@ -2,7 +2,7 @@
 # Cookbook Name:: python
 # Recipe:: tables
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@
 # limitations under the License.
 #
 
-python_prefix = node["python"]["prefix"]
+python_prefix = node['python']['prefix']
 
-include_recipe "python::pip"
-include_recipe "python::numpy"
+include_recipe 'python::pip'
+include_recipe 'python::numpy'
 
-pip_packages = %w[numexpr cython]
+pip_packages = %w(numexpr cython)
 pip_packages.each do |pip_package|
   execute "install #{pip_package}" do
     command "#{python_prefix}/bin/pip install #{pip_package}"
@@ -30,31 +30,30 @@ pip_packages.each do |pip_package|
   end
 end
 
-tables_version = node["python"]["tables_version"]
-tables_download_url = node["python"]["tables_download_url"]
-tables_checksum = node["python"]["tables_checksum"]
-tables_setup_options = node["python"]["tables_setup_options"]
+tables_version = node['python']['tables_version']
+tables_download_url = node['python']['tables_download_url']
+tables_checksum = node['python']['tables_checksum']
+tables_setup_options = node['python']['tables_setup_options']
 
-python_version = node["python"]["version"]
-python_prefix = node["python"]["prefix"]
-python_download_dir = node["python"]["download_dir"]
+python_prefix = node['python']['prefix']
+python_download_dir = node['python']['download_dir']
 
 remote_file "#{python_download_dir}/tables-#{tables_version}.tar.gz" do
-  source "#{tables_download_url}"
-  mode "0644"
-  checksum "#{tables_checksum}"
+  source tables_download_url
+  mode '0644'
+  checksum tables_checksum
 end
 
-execute "untar tables tarball" do
+execute 'untar tables tarball' do
   command "tar -xzf tables-#{tables_version}.tar.gz"
-  cwd "#{python_download_dir}"
+  cwd python_download_dir
   creates "#{python_download_dir}/tables-#{tables_version}"
   action :run
 end
 
-script "install tables" do
-  interpreter "bash"
-  user "root"
+script 'install tables' do
+  interpreter 'bash'
+  user 'root'
   cwd "#{python_download_dir}/tables-#{tables_version}"
   code <<-EOF
   #{python_prefix}/bin/python setup.py install #{tables_setup_options}

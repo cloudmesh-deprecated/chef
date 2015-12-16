@@ -2,7 +2,7 @@
 # Cookbook Name:: python
 # Recipe:: numpy
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,36 +17,36 @@
 # limitations under the License.
 #
 
-numpy_version = node["python"]["numpy_version"]
-numpy_download_url = node["python"]["numpy_download_url"]
-numpy_checksum = node["python"]["numpy_checksum"]
+numpy_version = node['python']['numpy_version']
+numpy_download_url = node['python']['numpy_download_url']
+numpy_checksum = node['python']['numpy_checksum']
 
-python_prefix = node["python"]["prefix"]
-python_download_dir = node["python"]["download_dir"]
+python_prefix = node['python']['prefix']
+python_download_dir = node['python']['download_dir']
 
-packages = %w{atlas atlas-devel blas blas-devel lapack lapack-devel}
-packages.each do |package|
-  package "#{package}" do
+packages = %w(atlas atlas-devel blas blas-devel lapack lapack-devel)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
 remote_file "#{python_download_dir}/numpy-#{numpy_version}.tar.gz" do
-  source "#{numpy_download_url}"
-  mode "0644"
-  checksum "#{numpy_checksum}"
+  source numpy_download_url
+  mode '0644'
+  checksum numpy_checksum
 end
 
-execute "untar numpy tarball" do
+execute 'untar numpy tarball' do
   command "tar -xzf numpy-#{numpy_version}.tar.gz"
-  cwd "#{python_download_dir}"
+  cwd python_download_dir
   creates "#{python_download_dir}/numpy-#{numpy_version}"
   action :run
 end
 
-script "install numpy" do
-  interpreter "bash"
-  user "root"
+script 'install numpy' do
+  interpreter 'bash'
+  user 'root'
   cwd "#{python_download_dir}/numpy-#{numpy_version}"
   code <<-EOF
   #{python_prefix}/bin/python setup.py build --fcompiler=gnu95

@@ -2,7 +2,7 @@
 # Cookbook Name:: python
 # Recipe:: mpi4py
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,38 +17,38 @@
 # limitations under the License.
 #
 
-mpi4py_version = node["python"]["mpi4py_version"]
-mpi4py_download_url = node["python"]["mpi4py_download_url"]
-mpi4py_checksum = node["python"]["mpi4py_checksum"]
-mpi4py_mpi_prefix = node["python"]["mpi4py_mpi_prefix"]
+mpi4py_version = node['python']['mpi4py_version']
+mpi4py_download_url = node['python']['mpi4py_download_url']
+mpi4py_checksum = node['python']['mpi4py_checksum']
+mpi4py_mpi_prefix = node['python']['mpi4py_mpi_prefix']
 
-python_prefix = node["python"]["prefix"]
-python_lib_directory = `#{node["python"]["prefix"]}/bin/python -c "import distutils.sysconfig as d; print(d.get_python_lib())"`.chomp
-python_download_dir = node["python"]["download_dir"]
+python_prefix = node['python']['prefix']
+python_lib_directory = `#{python_prefix}/bin/python -c "import distutils.sysconfig as d; print(d.get_python_lib())"`.chomp
+python_download_dir = node['python']['download_dir']
 
-packages = %w{atlas atlas-devel blas blas-devel lapack lapack-devel}
-packages.each do |package|
-  package "#{package}" do
+packages = %w(atlas atlas-devel blas blas-devel lapack lapack-devel)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
 remote_file "#{python_download_dir}/mpi4py-#{mpi4py_version}.tar.gz" do
-  source "#{mpi4py_download_url}"
-  mode "0644"
-  checksum "#{mpi4py_checksum}"
+  source mpi4py_download_url
+  mode '0644'
+  checksum mpi4py_checksum
 end
 
-execute "untar mpi4py tarball" do
+execute 'untar mpi4py tarball' do
   command "tar -xzf mpi4py-#{mpi4py_version}.tar.gz"
-  cwd "#{python_download_dir}"
+  cwd python_download_dir
   creates "#{python_download_dir}/mpi4py-#{mpi4py_version}"
   action :run
 end
 
-script "install mpi4py" do
-  interpreter "bash"
-  user "root"
+script 'install mpi4py' do
+  interpreter 'bash'
+  user 'root'
   cwd "#{python_download_dir}/mpi4py-#{mpi4py_version}"
   code <<-EOF
   #{python_prefix}/bin/python setup.py build --mpicc=#{mpi4py_mpi_prefix}/bin/mpicc

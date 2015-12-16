@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-python_prefix = node["python"]["prefix"]
+python_prefix = node['python']['prefix']
 
-execute "install pip" do
+execute 'install pip' do
   command "#{python_prefix}/bin/python -m ensurepip"
   creates "#{python_prefix}/bin/pip"
 end

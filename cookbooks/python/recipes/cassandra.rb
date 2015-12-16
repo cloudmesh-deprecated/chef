@@ -19,16 +19,16 @@
 
 include_recipe 'python::pip'
 
-python_prefix = node["python"]["prefix"]
+python_prefix = node['python']['prefix']
 
-packages = %w[libev libev-devel]
-packages.each do |package|
-  package "#{package}" do
+packages = %w(libev libev-devel)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
-pip_packages = %w[blist lz4 cassandra-driver]
+pip_packages = %w(blist lz4 cassandra-driver)
 pip_packages.each do |pip_package|
   execute "install #{pip_package}" do
     command "#{python_prefix}/bin/pip install #{pip_package}"

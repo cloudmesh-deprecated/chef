@@ -19,9 +19,9 @@
 
 include_recipe 'python::pip'
 
-python_prefix = node["python"]["prefix"]
+python_prefix = node['python']['prefix']
 
-execute "install pymongo" do
+execute 'install pymongo' do
   command "#{python_prefix}/bin/pip install pymongo"
   action :run
 end

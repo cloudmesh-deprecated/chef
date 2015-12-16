@@ -17,16 +17,16 @@
 # limitations under the License.
 #
 
-python_prefix = node["python"]["prefix"]
+python_prefix = node['python']['prefix']
 
-packages = %w{freetype freetype-devel lcms2-devel libjpeg-turbo libjpeg-turbo-devel libtiff libtiff-devel zlib zlib-devel}
-packages.each do |package|
-  package "#{package}" do
+packages = %w(freetype freetype-devel lcms2-devel libjpeg-turbo libjpeg-turbo-devel libtiff libtiff-devel zlib zlib-devel)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
-execute "install Pillow" do
+execute 'install Pillow' do
   command "#{python_prefix}/bin/pip install Pillow"
   action :run
 end

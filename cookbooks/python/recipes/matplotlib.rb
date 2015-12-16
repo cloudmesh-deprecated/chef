@@ -2,7 +2,7 @@
 # Cookbook Name:: python
 # Recipe:: matplotlib
 #
-# Copyright 2013, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,26 +17,26 @@
 # limitations under the License.
 #
 
-include_recipe "python::pip"
-include_recipe "python::imaging"
-include_recipe "python::numpy"
+include_recipe 'python::pip'
+include_recipe 'python::imaging'
+include_recipe 'python::numpy'
 
-matplotlib_version = node["python"]["matplotlib_version"]
-matplotlib_download_url = node["python"]["matplotlib_download_url"]
-matplotlib_checksum = node["python"]["matplotlib_checksum"]
+matplotlib_version = node['python']['matplotlib_version']
+matplotlib_download_url = node['python']['matplotlib_download_url']
+matplotlib_checksum = node['python']['matplotlib_checksum']
 
-python_prefix = node["python"]["prefix"]
-python_download_dir = node["python"]["download_dir"]
+python_prefix = node['python']['prefix']
+python_download_dir = node['python']['download_dir']
 
-packages = %w{freetype freetype-devel libpng libpng-devel}
-packages.each do |package|
-  package "#{package}" do
+packages = %w(freetype freetype-devel libpng libpng-devel)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
 # For Python versions < 3, use python-dateutil 1.5
-pip_packages = %w[python-dateutil==1.5]
+pip_packages = %w(python-dateutil==1.5)
 pip_packages.each do |pip_package|
   execute "install #{pip_package}" do
     command "#{python_prefix}/bin/pip install #{pip_package}"
@@ -45,21 +45,21 @@ pip_packages.each do |pip_package|
 end
 
 remote_file "#{python_download_dir}/matplotlib-#{matplotlib_version}.tar.gz" do
-  source "#{matplotlib_download_url}"
-  mode "0644"
-  checksum "#{matplotlib_checksum}"
+  source matplotlib_download_url
+  mode '0644'
+  checksum matplotlib_checksum
 end
 
-execute "untar matplotlib tarball" do
+execute 'untar matplotlib tarball' do
   command "tar -xzf matplotlib-#{matplotlib_version}.tar.gz"
-  cwd "#{python_download_dir}"
+  cwd python_download_dir
   creates "#{python_download_dir}/matplotlib-#{matplotlib_version}"
   action :run
 end
 
-script "install matplotlib" do
-  interpreter "bash"
-  user "root"
+script 'install matplotlib' do
+  interpreter 'bash'
+  user 'root'
   cwd "#{python_download_dir}/matplotlib-#{matplotlib_version}"
   code <<-EOF
   #{python_prefix}/bin/python setup.py build
