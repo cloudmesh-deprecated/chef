@@ -39,7 +39,7 @@ end
 execute 'install memsql' do
   command './install.sh -n'
   cwd "#{memsql_download_dir}/memsql-ops-#{memsql_version}"
-  creates "/usr/bin/memsql-ops"
+  creates '/usr/bin/memsql-ops'
 end
 
 remote_file "#{memsql_download_dir}/memsqlbin_amd64.tar.gz" do
