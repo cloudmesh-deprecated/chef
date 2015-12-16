@@ -1,7 +1,7 @@
-default["cassandra"]["broadcast_rpc_address"] = ""
-default["cassandra"]["cluster_name"] = "Test Cluster"
-default["cassandra"]["conf_dir"] = "/etc/cassandra/default.conf/"
-default["cassandra"]["listen_address"] = ""
-default["cassandra"]["rmi_server_hostname"] = ""
-default["cassandra"]["rpc_address"] = "0.0.0.0"
-default["cassandra"]["seeds"] = ""
+default['cassandra']['broadcast_rpc_address'] = ''
+default['cassandra']['cluster_name'] = 'Test Cluster'
+default['cassandra']['conf_dir'] = '/etc/cassandra/default.conf/'
+default['cassandra']['listen_address'] = ''
+default['cassandra']['rmi_server_hostname'] = ''
+default['cassandra']['rpc_address'] = '0.0.0.0'
+default['cassandra']['seeds'] = ''

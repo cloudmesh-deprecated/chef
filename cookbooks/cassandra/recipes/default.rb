@@ -17,51 +17,50 @@
 # limitations under the License.
 #
 
-broadcast_rpc_address = node["cassandra"]["broadcast_rpc_address"]
-cluster_name = node["cassandra"]["cluster_name"]
-conf_dir = node["cassandra"]["conf_dir"]
-listen_address = node["cassandra"]["listen_address"]
-rmi_server_hostname = node["cassandra"]["rmi_server_hostname"]
-rpc_address = node["cassandra"]["rpc_address"]
-seeds = node["cassandra"]["seeds"]
+broadcast_rpc_address = node['cassandra']['broadcast_rpc_address']
+cluster_name = node['cassandra']['cluster_name']
+conf_dir = node['cassandra']['conf_dir']
+listen_address = node['cassandra']['listen_address']
+rmi_server_hostname = node['cassandra']['rmi_server_hostname']
+rpc_address = node['cassandra']['rpc_address']
+seeds = node['cassandra']['seeds']
 
-
-jdk_packages = %w[java-1.8.0-openjdk java-1.8.0-openjdk-devel]
+jdk_packages = %w(java-1.8.0-openjdk java-1.8.0-openjdk-devel)
 jdk_packages.each do |jdk_package|
-  package "#{jdk_package}" do
+  package jdk_package do
     action :install
   end
 end
 
-cookbook_file "datastax.repo" do
-  path "/etc/yum.repos.d/datastax.repo"
-  mode "0644"
+cookbook_file 'datastax.repo' do
+  path '/etc/yum.repos.d/datastax.repo'
+  mode '0644'
 end
 
-package "dsc21" do
+package 'dsc21' do
   action :install
 end
 
-template "#{File.join(conf_dir, "cassandra.yaml")}" do
-  source "cassandra.yaml.erb"
-  mode "0644"
+template "#{File.join(conf_dir, 'cassandra.yaml')}" do
+  source 'cassandra.yaml.erb'
+  mode '0644'
   variables(
-    :cluster_name => cluster_name,
-    :seeds => seeds,
-    :listen_address => listen_address,
-    :rpc_address => rpc_address,
-    :broadcast_rpc_address => broadcast_rpc_address
+    cluster_name: cluster_name,
+    seeds: seeds,
+    listen_address: listen_address,
+    rpc_address: rpc_address,
+    broadcast_rpc_address: broadcast_rpc_address
   )
 end
 
-template "#{File.join(conf_dir, "cassandra-env.sh")}" do
-  source "cassandra-env.sh.erb"
-  mode "0644"
+template "#{File.join(conf_dir, 'cassandra-env.sh')}" do
+  source 'cassandra-env.sh.erb'
+  mode '0644'
   variables(
-    :rmi_server_hostname => rmi_server_hostname
+    rmi_server_hostname: rmi_server_hostname
   )
 end
 
-service "cassandra" do
-  action [ :enable, :start ]
+service 'cassandra' do
+  action [:enable, :start]
 end
