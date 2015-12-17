@@ -2,7 +2,7 @@
 # Cookbook Name:: slurm
 # Recipe:: package
 #
-# Copyright 2014, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-platform_family = node["platform_family"]
+platform_family = node['platform_family']
 
 begin
   include_recipe "slurm::_#{platform_family}"

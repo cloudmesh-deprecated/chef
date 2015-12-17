@@ -2,7 +2,7 @@
 # Cookbook Name:: slurm
 # Recipe:: create_rpm
 #
-# Copyright 2014, Jonathan Klinginsmith
+# Copyright 2015, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,38 +17,27 @@
 # limitations under the License.
 #
 
-slurm_version = node["slurm"]["version"]
-slurm_download_url = node["slurm"]["download_url"]
-slurm_download_dir = node["slurm"]["download_dir"]
-slurm_checksum = node["slurm"]["checksum"]
-slurm_prefix = node["slurm"]["prefix"]
-slurm_sysconfdir = node["slurm"]["sysconfdir"]
-slurm_version_dir = File.join(slurm_download_dir, "slurm-#{slurm_version}")
+slurm_version = node['slurm']['version']
+slurm_download_url = node['slurm']['download_url']
+slurm_download_dir = node['slurm']['download_dir']
+slurm_checksum = node['slurm']['checksum']
 
-slurm_control_machine = node["slurm"]["control_machine"]
-slurm_control_addr = node["slurm"]["control_addr"]
+packages = %w(gcc gcc-c++ mailx make munge munge-devel munge-libs openssl openssl-devel pam-devel perl perl-ExtUtils-MakeMaker readline-devel rpm-build)
 
-slurm_user = node["slurm"]["user"]
-slurm_uid = node["slurm"]["uid"]
-slurm_group = node["slurm"]["group"]
-slurm_gid = node["slurm"]["gid"]
-
-packages = %w[gcc gcc-c++ mailx make munge munge-devel munge-libs openssl openssl-devel pam-devel perl perl-ExtUtils-MakeMaker readline-devel rpm-build]
-
-packages.each do |package|
-  package "#{package}" do
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
 remote_file "#{slurm_download_dir}/slurm-#{slurm_version}.tar.bz2" do
-  source "#{slurm_download_url}"
-  mode "0644"
-  checksum "#{slurm_checksum}"
+  source slurm_download_url
+  mode '0644'
+  checksum slurm_checksum
 end
 
-execute "build slurm rpm" do
+execute 'build slurm rpm' do
   command "rpmbuild -ta slurm-#{slurm_version}.tar.bz2"
-  cwd "#{slurm_download_dir}"
-  creates "#{ File.join(File.expand_path("~"), "rpmbuild", "RPMS", "x86_64", "slurm-#{slurm_version}.el6.x86_64.rpm") }"
+  cwd slurm_download_dir
+  creates "#{File.join(File.expand_path('~'), 'rpmbuild', 'RPMS', 'x86_64', "slurm-#{slurm_version}.el6.x86_64.rpm")}"
 end
