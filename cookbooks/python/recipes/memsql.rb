@@ -21,7 +21,7 @@ include_recipe 'python::pip'
 
 python_prefix = node['python']['prefix']
 
-execute 'install memsql' do
+execute 'install python memsql' do
   command "#{python_prefix}/bin/pip install memsql"
   action :run
 end
