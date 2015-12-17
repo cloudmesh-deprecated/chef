@@ -1,8 +1,8 @@
-default['python']['version'] = '2.7.10'
+default['python']['version'] = '2.7.11'
 default['python']['short_version'] = "#{node['python']['version'][0, 3]}"
 default['python']['download_url'] = "https://www.python.org/ftp/python/#{node['python']['version']}/Python-#{node['python']['version']}.tgz"
 default['python']['download_dir'] = Chef::Config[:file_cache_path]
-default['python']['checksum'] = 'eda8ce6eec03e74991abb5384170e7c65fcd7522e409b8e83d7e6372add0f12a'
+default['python']['checksum'] = '82929b96fd6afc8da838b149107078c02fa1744b7e60999a8babbc0d3fa86fc6'
 default['python']['prefix'] = '/usr/local'
 default['python']['install_method'] = 'source'
 
