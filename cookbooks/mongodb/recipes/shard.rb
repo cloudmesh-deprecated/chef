@@ -17,46 +17,46 @@
 # limitations under the License.
 #
 
-include_recipe "mongodb::repo"
+include_recipe 'mongodb::repo'
 
-mongodb_shard_port = node["mongodb"]["shard_port"]
-mongodb_shard_role = node["mongodb"]["shard_role"]
+mongodb_shard_port = node['mongodb']['shard_port']
+mongodb_shard_role = node['mongodb']['shard_role']
 
-packages = %w[mongodb-org-server mongodb-org-shell]
-packages.each do |package|
-  package "#{package}" do
+packages = %w(mongodb-org-server mongodb-org-shell)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
-template "/etc/mongod.conf" do
-  source "shard.erb"
-  mode "0644"
+template '/etc/mongod.conf' do
+  source 'shard.erb'
+  mode '0644'
   variables(
-    :shard_port => mongodb_shard_port
+    shard_port: mongodb_shard_port
   )
 end
 
-service "mongod" do
+service 'mongod' do
   action [:enable, :start]
 end
 
 # Initiate the replica set only on the primary
-if mongodb_shard_role == "primary"
-  execute "initiate replica set" do
+if mongodb_shard_role == 'primary'
+  execute 'initiate replica set' do
     command "mongo --port #{mongodb_shard_port} --eval \"rs.initiate()\""
-    not_if  "mongo --port #{mongodb_shard_port} --eval \"shellPrint(rs.conf())\" > /dev/null"
+    not_if "mongo --port #{mongodb_shard_port} --eval \"shellPrint(rs.conf())\" > /dev/null"
   end
 end
 
-#rs_status = Mixlib::ShellOut.new("mongo --eval \"printjson(rs.status())\" --quiet")
-#rs_status.run_command
-#rs_json = JSON.parse(rs_status.stdout)
-#rs_json = `mongo --eval "printjson(rs.status())" --quiet`
-#members = rs_json.fetch("members", [])
-#members.each do |member|
-#  log "message" do
-#    message "Member: #{member['name']}"
-#    level :info
-#  end
-#end
+# rs_status = Mixlib::ShellOut.new("mongo --eval \"printjson(rs.status())\" --quiet")
+# rs_status.run_command
+# rs_json = JSON.parse(rs_status.stdout)
+# rs_json = `mongo --eval "printjson(rs.status())" --quiet`
+# members = rs_json.fetch("members", [])
+# members.each do |member|
+#   log "message" do
+#     message "Member: #{member['name']}"
+#     level :info
+#   end
+# end

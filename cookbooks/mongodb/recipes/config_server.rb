@@ -17,22 +17,22 @@
 # limitations under the License.
 #
 
-include_recipe "mongodb::repo"
+include_recipe 'mongodb::repo'
 
-mongodb_config_server_port = node["mongodb"]["config_server_port"]
+mongodb_config_server_port = node['mongodb']['config_server_port']
 
-package "mongodb-org-server" do
+package 'mongodb-org-server' do
   action :install
 end
 
-template "/etc/mongod.conf" do
-  source "config_server.erb"
-  mode "0644"
+template '/etc/mongod.conf' do
+  source 'config_server.erb'
+  mode '0644'
   variables(
-    :config_server_port => mongodb_config_server_port
+    config_server_port: mongodb_config_server_port
   )
 end
 
-service "mongod" do
+service 'mongod' do
   action [:enable, :start]
 end

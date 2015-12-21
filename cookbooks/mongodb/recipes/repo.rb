@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-cookbook_file "mongodb-org-3.0.repo" do
-  path "/etc/yum.repos.d/mongodb-org-3.0.repo"
-  mode "0644"
+cookbook_file 'mongodb-org-3.0.repo' do
+  path '/etc/yum.repos.d/mongodb-org-3.0.repo'
+  mode '0644'
 end

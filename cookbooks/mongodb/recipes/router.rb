@@ -17,29 +17,29 @@
 # limitations under the License.
 #
 
-include_recipe "mongodb::repo"
+include_recipe 'mongodb::repo'
 
-mongodb_config_server_port = node["mongodb"]["config_server_port"]
-mongodb_config_servers = node["mongodb"]["config_servers"].map{ |config_server| "#{config_server}:#{mongodb_config_server_port}"}.join(",")
-mongodb_log_dir = node["mongodb"]["log_dir"]
-mongodb_run_dir = node["mongodb"]["run_dir"]
+mongodb_config_server_port = node['mongodb']['config_server_port']
+mongodb_config_servers = node['mongodb']['config_servers'].map { |config_server| "#{config_server}:#{mongodb_config_server_port}" }.join(',')
+mongodb_log_dir = node['mongodb']['log_dir']
+mongodb_run_dir = node['mongodb']['run_dir']
 
-packages = %w[mongodb-org-mongos mongodb-org-shell]
-packages.each do |package|
-  package "#{package}" do
+packages = %w(mongodb-org-mongos mongodb-org-shell)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
-group "mongos" do
-  gid "1002"
+group 'mongos' do
+  gid '1002'
   action :create
 end
 
-user "mongos" do
-  uid "1003"
-  gid "mongos"
-  shell "/bin/bash"
+user 'mongos' do
+  uid '1003'
+  gid 'mongos'
+  shell '/bin/bash'
   system true
   action :create
 end
@@ -47,33 +47,33 @@ end
 directories = [mongodb_log_dir, mongodb_run_dir]
 directories.each do |dir|
   directory dir do
-    mode "0755"
-    user "mongos"
-    group "mongos"
+    mode '0755'
+    user 'mongos'
+    group 'mongos'
     action :create
     recursive true
   end
 end
 
-template "/etc/mongos.conf" do
-  source "mongos.conf.erb"
-  mode "0644"
-  user "root"
-  group "root"
+template '/etc/mongos.conf' do
+  source 'mongos.conf.erb'
+  mode '0644'
+  user 'root'
+  group 'root'
   variables(
-    :log_dir => mongodb_log_dir,
-    :run_dir => mongodb_run_dir,
-    :config_servers => mongodb_config_servers
+    log_dir: mongodb_log_dir,
+    run_dir: mongodb_run_dir,
+    config_servers: mongodb_config_servers
   )
 end
 
-template "/etc/init.d/mongos" do
-  source "mongos.erb"
-  mode "0755"
-  user "root"
-  group "root"
+template '/etc/init.d/mongos' do
+  source 'mongos.erb'
+  mode '0755'
+  user 'root'
+  group 'root'
 end
 
-#service "mongos" do
-#  action [:enable, :start]
-#end
+# service "mongos" do
+#   action [:enable, :start]
+# end
