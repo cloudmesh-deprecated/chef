@@ -17,35 +17,34 @@
 # limitations under the License.
 #
 
-postgres_download_url = node["postgres"]["download_url"]
+postgres_download_url = node['postgres']['download_url']
 postgres_rpm_path = File.join(Chef::Config[:file_cache_path], File.basename(postgres_download_url))
-postgres_checksum = node["postgres"]["checksum"]
-postgres_server_rpm = node["postgres"]["server_rpm"]
-postgres_version = node["postgres"]["version"]
+postgres_checksum = node['postgres']['checksum']
+postgres_version = node['postgres']['version']
 
-remote_file "#{postgres_rpm_path}" do
-  source "#{postgres_download_url}"
-  mode "0755"
-  checksum "#{postgres_checksum}"
+remote_file postgres_rpm_path do
+  source postgres_download_url
+  mode '0755'
+  checksum postgres_checksum
 end
 
-package "#{File.basename(postgres_rpm_path, ".rpm")}" do
+package "#{File.basename(postgres_rpm_path, '.rpm')}" do
   action :install
-  source "#{postgres_rpm_path}"
+  source postgres_rpm_path
   provider Chef::Provider::Package::Rpm
 end
 
-package_prefix = postgres_version.gsub(".", "")
+package_prefix = postgres_version.delete('.', '')
 packages = ["postgresql#{package_prefix}-server", "postgresql#{package_prefix}-devel"]
-packages.each do |package|
-  package "#{package}" do
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
-execute "init db" do
-  command "/usr/pgsql-#{postgres_version}/bin/postgresql#{postgres_version.gsub(".", "")}-setup initdb"
-  not_if { ::File.exists?("/var/lib/pgsql/#{postgres_version}/data/pg_hba.conf") }
+execute 'init db' do
+  command "/usr/pgsql-#{postgres_version}/bin/postgresql#{package_prefix}-setup initdb"
+  not_if { ::File.exist?("/var/lib/pgsql/#{postgres_version}/data/pg_hba.conf") }
 end
 
 service "postgresql-#{postgres_version}" do
