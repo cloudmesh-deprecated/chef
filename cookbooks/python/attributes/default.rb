@@ -25,9 +25,9 @@ default['python']['mpi4py_download_url'] = "https://mpi4py.googlecode.com/files/
 default['python']['mpi4py_checksum'] = 'e7bd2044aaac5a6ea87a87b2ecc73b310bb6efe5026031e33067ea3c2efc3507'
 default['python']['mpi4py_mpi_prefix'] = '/usr/local'
 
-default['python']['numpy_version'] = '1.9.1'
+default['python']['numpy_version'] = '1.10.2'
 default['python']['numpy_download_url'] = "https://pypi.python.org/packages/source/n/numpy/numpy-#{node['python']['numpy_version']}.tar.gz"
-default['python']['numpy_checksum'] = '0075bbe07e30b659ae4415446f45812dc1b96121a493a4a1f8b1ba77b75b1e1c'
+default['python']['numpy_checksum'] = '23a3befdf955db4d616f8bb77b324680a80a323e0c42a7e8d7388ef578d8ffa9'
 
 default['python']['pandas_version'] = '0.16.2'
 default['python']['pandas_download_url'] = "https://pypi.python.org/packages/source/p/pandas/pandas-#{node['python']['pandas_version']}.tar.gz"
