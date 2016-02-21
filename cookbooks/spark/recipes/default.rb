@@ -2,7 +2,7 @@
 # Cookbook Name:: spark
 # Recipe:: default
 #
-# Copyright 2015, Jonathan Klinginsmith
+# Copyright 2016, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@
 spark_download_url = node['spark']['download_url']
 spark_download_dir = node['spark']['download_dir']
 spark_tarball = File.basename(spark_download_url)
-spark_directory = File.join(spark_download_dir, 
+spark_directory = File.join(spark_download_dir,
                             File.basename(spark_tarball, File.extname(spark_tarball)))
 spark_checksum = node['spark']['checksum']
 
-packages = %w[java-1.8.0-openjdk java-1.8.0-openjdk-devel]
+packages = %w(java-1.8.0-openjdk java-1.8.0-openjdk-devel)
 packages.each do |pkg|
   package pkg do
     action :install
