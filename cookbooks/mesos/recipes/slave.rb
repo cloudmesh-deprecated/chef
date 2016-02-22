@@ -2,7 +2,7 @@
 # Cookbook Name:: mesos
 # Recipe:: slave
 #
-# Copyright 2015, Jonathan Klinginsmith
+# Copyright 2016, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,24 +17,24 @@
 # limitations under the License.
 #
 
-mesos_repo_rpm_download_url = node["mesos"]["repo_rpm_download_url"]
-mesos_repo_rpm_path = node["mesos"]["repo_rpm_path"]
-mesos_cluster_name = node["mesos"]["cluster_name"]
-mesos_zookeeper_client_port = node["mesos"]["zookeeper_client_port"]
+mesos_repo_rpm_download_url = node['mesos']['repo_rpm_download_url']
+mesos_repo_rpm_path = node['mesos']['repo_rpm_path']
+mesos_cluster_name = node['mesos']['cluster_name']
+mesos_zookeeper_client_port = node['mesos']['zookeeper_client_port']
 
-remote_file "#{mesos_repo_rpm_path}" do
-  source "#{mesos_repo_rpm_download_url}"
+remote_file mesos_repo_rpm_path do
+  source mesos_repo_rpm_download_url
 end
 
-package "#{File.basename(mesos_repo_rpm_path, ".rpm")}" do
+package "#{File.basename(mesos_repo_rpm_path, '.rpm')}" do
   action :install
-  source "#{mesos_repo_rpm_path}"
+  source mesos_repo_rpm_path
   provider Chef::Provider::Package::Rpm
 end
 
-mesos_packages = %w[mesos]
+mesos_packages = %w(mesos)
 mesos_packages.each do |mesos_package|
-  package "#{mesos_package}" do
+  package mesos_package do
     action :install
   end
 end
@@ -43,19 +43,19 @@ end
 mesos_masters = search(:node, "mesos_roles:master AND mesos_cluster_name:#{mesos_cluster_name}")
 mesos_masters_sorted = mesos_masters.sort_by { |x| x['mesos']['zookeeper_id'].to_i }
 
-template "/etc/mesos/zk" do
-  source "etc_mesos_zk.erb"
-  mode "0644"
+template '/etc/mesos/zk' do
+  source 'etc_mesos_zk.erb'
+  mode '0644'
   variables(
-    :mesos_masters => mesos_masters_sorted,
-    :mesos_zookeeper_client_port => mesos_zookeeper_client_port
+    mesos_masters: mesos_masters_sorted,
+    mesos_zookeeper_client_port: mesos_zookeeper_client_port
   )
 end
 
-service "mesos-master" do
-  action [ :disable, :stop ]
+service 'mesos-master' do
+  action [:disable, :stop]
 end
 
-service "mesos-slave" do
-  action [ :enable, :restart ]
+service 'mesos-slave' do
+  action [:enable, :restart]
 end
