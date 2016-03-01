@@ -1,1 +1,1 @@
-default[:ganglia][:port] = 8601
+default['ganglia']['port'] = 8601
