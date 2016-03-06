@@ -53,7 +53,7 @@ end
 
 directory '/var/lib/ganglia/rrds' do
   owner 'ganglia'
-  group 'ganlia'
+  group 'ganglia'
   action :create
   recursive true
 end
