@@ -52,8 +52,8 @@ template '/etc/httpd/conf.d/ganglia.conf' do
 end
 
 directory '/var/lib/ganglia/rrds' do
-  owner 'ganglia'
-  group 'ganglia'
+  owner 'nobody'
+  group 'root'
   action :create
   recursive true
 end
