@@ -1,5 +1,5 @@
-default['spark']['version'] = '1.6.0'
+default['spark']['version'] = '1.6.1'
 default['spark']['download_url'] = "http://ftp.wayne.edu/apache/spark/spark-#{node['spark']['version']}/spark-#{node['spark']['version']}-bin-hadoop2.6.tgz"
 default['spark']['download_dir'] = Chef::Config[:file_cache_path]
-default['spark']['checksum'] = '439fe7793e0725492d3d36448adcd1db38f438dd1392bffd556b58bb9a3a2601'
+default['spark']['checksum'] = '09f3b50676abc9b3d1895773d18976953ee76945afa72fa57e6473ce4e215970'
 default['spark']['prefix'] = '/usr/local'
