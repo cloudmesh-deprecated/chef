@@ -2,7 +2,7 @@
 # Cookbook Name:: serf
 # Recipe:: default
 #
-# Copyright 2014, Jonathan Klinginsmith
+# Copyright 2016, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,51 +17,51 @@
 # limitations under the License.
 #
 
-serf_version = node["serf"]["version"]
-serf_download_url = node["serf"]["download_url"]
-serf_download_dir = Chef::Config["file_cache_path"]
-serf_checksum = node["serf"]["checksum"]
-serf_prefix = node["serf"]["prefix"]
-serf_config_dir = node["serf"]["config_dir"]
-serf_handler_dir = node["serf"]["handler_dir"]
+serf_version = node['serf']['version']
+serf_download_url = node['serf']['download_url']
+serf_download_dir = Chef::Config['file_cache_path']
+serf_checksum = node['serf']['checksum']
+serf_prefix = node['serf']['prefix']
+serf_config_dir = node['serf']['config_dir']
+serf_handler_dir = node['serf']['handler_dir']
 
-package "unzip" do
+package 'unzip' do
   action :install
 end
 
-remote_file "#{File.join(serf_download_dir, "#{serf_version}_linux_amd64.zip")}" do
-  source "#{serf_download_url}"
-  mode "0644"
-  checksum "#{serf_checksum}"
+remote_file File.join(serf_download_dir, "#{serf_version}_linux_amd64.zip") do
+  source serf_download_url
+  mode '0644'
+  checksum serf_checksum
 end
 
-execute "unzip serf zip file" do
+execute 'unzip serf zip file' do
   command "unzip #{serf_version}_linux_amd64.zip"
-  cwd "#{serf_download_dir}"
-  creates "#{serf_download_dir}/serf"
+  cwd serf_download_dir
+  creates File.join(serf_download_dir, 'serf')
 end
 
-execute "copy serf executable" do
-  command "cp #{serf_download_dir}/serf #{serf_prefix}/bin/serf"
-  cwd "#{serf_download_dir}"
-  creates "#{serf_prefix}/bin/serf"
+execute 'copy serf executable' do
+  command "cp #{File.join(serf_download_dir, 'serf')} #{File.join(serf_prefix, 'bin', 'serf')}"
+  cwd serf_download_dir
+  creates File.join(serf_prefix, 'bin', 'serf')
 end
- 
+
 directories = [serf_config_dir, serf_handler_dir]
-directories.each do |directory|
-  directory "#{directory}" do
-    mode "0755"
+directories.each do |dir|
+  directory dir do
+    mode '0755'
     action :create
     recursive true
   end
 end
 
 # Create the systemd service file.
-template "/etc/systemd/system/serf.service" do
-  source "serf.service.erb"
-  mode "0755"
+template '/etc/systemd/system/serf.service' do
+  source 'serf.service.erb'
+  mode '0755'
   variables(
-    :bin_dir => File.join(serf_prefix, "bin"),
-    :config_dir => serf_config_dir
+    bin_dir: File.join(serf_prefix, 'bin'),
+    config_dir: serf_config_dir
   )
 end
