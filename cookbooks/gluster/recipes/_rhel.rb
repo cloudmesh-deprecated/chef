@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: gluster
-# Recipe:: default
+# Recipe:: _rhel
 #
 # Copyright 2016, Jonathan Klinginsmith
 #
