@@ -1,4 +1,5 @@
-default["gluster"]["server"] = ""
-default["gluster"]["volume"] = ""
-default["gluster"]["mount_point"] = ""
-default["gluster"]["fstype"] = "glusterfs"
+default['gluster']['server'] = ''
+default['gluster']['volume'] = ''
+default['gluster']['mount_point'] = ''
+default['gluster']['fstype'] = 'glusterfs'
+default['gluster']['repo_checksum'] = 'ee06398d5b09d230fa3ffad4995b83089012a426265741c58a70bf587d14613c'

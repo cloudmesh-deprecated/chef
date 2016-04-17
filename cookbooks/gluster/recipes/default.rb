@@ -2,9 +2,7 @@
 # Cookbook Name:: gluster
 # Recipe:: default
 #
-# Copyright 2014, Jonathan Klinginsmith
-#
-# All rights reserved - Do Not Redistribute
+# Copyright 2016, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-platform_family = node["platform_family"]
+platform_family = node['platform_family']
 
 begin
   include_recipe "gluster::_#{platform_family}"

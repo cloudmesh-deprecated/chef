@@ -2,9 +2,7 @@
 # Cookbook Name:: gluster
 # Recipe:: client
 #
-# Copyright 2014, Jonathan Klinginsmith
-#
-# All rights reserved - Do Not Redistribute
+# Copyright 2016, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,27 +16,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "gluster::default"
+include_recipe 'gluster::default'
 
-gluster_server = node["gluster"]["server"]
-gluster_volume = node["gluster"]["volume"]
-gluster_mount_point = node["gluster"]["mount_point"]
-gluster_fstype = node["gluster"]["fstype"]
+gluster_server = node['gluster']['server']
+gluster_volume = node['gluster']['volume']
+gluster_mount_point = node['gluster']['mount_point']
+gluster_fstype = node['gluster']['fstype']
 
-packages = %w{glusterfs glusterfs-fuse}
-packages.each do |package|
-  package "#{package}" do
+packages = %w(glusterfs glusterfs-fuse)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
-#mount_point = "/mnt/distributed"
-#gluster_server = "headnode"
-#gluster_volume = ""
-#fstype = "glusterfs"
+directory gluster_mount_point do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  recursive true
+  action :create
+end
 
-mount "#{gluster_mount_point}" do
+mount gluster_mount_point do
   device "#{gluster_server}:/#{gluster_volume}"
-  fstype "#{gluster_fstype}"
+  fstype gluster_fstype
   action [:mount]
 end

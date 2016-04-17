@@ -1,10 +1,8 @@
 #
 # Cookbook Name:: gluster
-# Recipe:: _rhel
+# Recipe:: default
 #
-# Copyright 2014, Jonathan Klinginsmith
-#
-# All rights reserved - Do Not Redistribute
+# Copyright 2016, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-remote_file "/etc/yum.repos.d/glusterfs-epel.repo" do
-  source "http://download.gluster.org/pub/gluster/glusterfs/LATEST/CentOS/glusterfs-epel.repo"
-  mode "0644"
-  checksum "11e24f4c7ea04cf51c38c7a8c5b24f3e0298c50f6119c4b58af207fedf85652e"
+gluster_repo_checksum = default['gluster']['repo_checksum']
+
+remote_file '/etc/yum.repos.d/glusterfs-epel.repo' do
+  source 'http://download.gluster.org/pub/gluster/glusterfs/LATEST/CentOS/glusterfs-epel.repo'
+  mode '0644'
+  checksum gluster_repo_checksum
 end

@@ -2,9 +2,7 @@
 # Cookbook Name:: gluster
 # Recipe:: server
 #
-# Copyright 2014, Jonathan Klinginsmith
-#
-# All rights reserved - Do Not Redistribute
+# Copyright 2016, Jonathan Klinginsmith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,26 +16,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "gluster::default"
+include_recipe 'gluster::default'
 
-gluster_volume = node["gluster"]["volume"]
-gluster_server = node["gluster"]["server"]
-gluster_brick = node["gluster"]["brick"]
+gluster_volume = node['gluster']['volume']
+gluster_server = node['gluster']['server']
+gluster_brick = node['gluster']['brick']
 
-packages = %w[glusterfs glusterfs-fuse glusterfs-server]
-packages.each do |package|
-  package "#{package}" do
+packages = %w(glusterfs glusterfs-fuse glusterfs-server)
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
 
-services = %w[glusterd]
-services.each do |service|
-  service "#{service}" do
-    action [ :enable, :start ]
+services = %w(glusterd)
+services.each do |srvc|
+  service srvc do
+    action [:enable, :start]
   end
 end
 
 execute "gluster volume create #{gluster_volume} #{gluster_server}:/#{gluster_brick}" do
-  not_if "gluster volume status #{gluster_volume}"
+  not_if "gluster volume status all 2>&1 | grep #{gluster_volume} > /dev/null"
+end
+
+execute "gluster volume start #{gluster_volume}" do
+  not_if "gluster volume status #{gluster_volume} 2> /dev/null"
 end
